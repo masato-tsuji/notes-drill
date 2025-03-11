@@ -17,9 +17,6 @@ body {
   margin-bottom: 100px;
 }
 
-
-
-
 .container {
   display: flex;
   flex-direction: column;  /*要素を縦に配置*/
@@ -94,14 +91,21 @@ body {
   }
 }
 
+/*--------------------- ドリルエリア ---------------------*/
+#drill-area {
+  display: none;
+}
+
+
 
 /*--------------------- piano ---------------------*/
 
 .container_row {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; /* 垂直方向に中央 */
   height: 100vh;
+  width: 100%;
 }
 
 #piano {
@@ -110,8 +114,8 @@ body {
 }
 
 .white-key {
-  width: 100px; /* 白鍵の幅 */
-  height: 365px; /* 白鍵の高さ */
+  width: 105px; /* 白鍵の幅 */
+  height: 370px; /* 白鍵の高さ */
   background: white;
   border: 1px solid #ccc;
   margin-right: 5px;
@@ -119,22 +123,28 @@ body {
   z-index: 1;
   cursor: pointer;
 }
+.white-key:active {
+  background: rgb(146, 146, 146);
+}
 
 .black-key {
-  width: 49px; /* 黒鍵の幅 */
-  height: 225px; /* 黒鍵の高さ */
+  width: 52px; /* 黒鍵の幅 */
+  height: 230px; /* 黒鍵の高さ */
   background: black;
   position: absolute;
   z-index: 2;
   cursor: pointer;
 }
+.black-key:active {
+  background: rgb(146, 146, 146);
+}
 
 /* 黒鍵の正しい位置 */
-.black-key:nth-child(2) { margin-left: 0px; } /* C# */
-.black-key:nth-child(4) { margin-left: 41px; } /* D# */
-.black-key:nth-child(7) { margin-left: 120px;  } /* F# */
-.black-key:nth-child(9) { margin-left: 155px;  } /* G# */
-.black-key:nth-child(11) { margin-left: 190px;  } /* A# */
+.black-key:nth-child(2) { margin-left: 35px; } /* C# */
+.black-key:nth-child(4) { margin-left: 83px; } /* D# */
+.black-key:nth-child(7) { margin-left: 165px;  } /* F# */
+.black-key:nth-child(9) { margin-left: 212px;  } /* G# */
+.black-key:nth-child(11) { margin-left: 256px;  } /* A# */
 
 
 /*
