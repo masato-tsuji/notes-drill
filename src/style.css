@@ -132,7 +132,7 @@ body {
   height: 230px; /* 黒鍵の高さ */
   background: black;
   position: absolute;
-  z-index: 10;
+  z-index: 2;
   cursor: pointer;
 }
 .black-key:active {
@@ -148,7 +148,7 @@ body {
 
 .read-key {
   position: absolute;
-  z-index: 30;
+  z-index: 3;
   font-size: 34px;
   font-weight: bold;
   margin-top: 300px;
