@@ -15,7 +15,7 @@ git checkout gh-pages
 git merge main
 
 # gh-pagesブランチの変更をプッシュ
-git push origin gh-pages
+git push --force origin gh-pages
 
 # mainブランチに戻る
 git checkout main
