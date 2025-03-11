@@ -1,0 +1,49 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+
+
+/* 共通 */
+body {
+  background-color: black;
+  color: rgb(128,128,128);
+  font-size: 20px;
+  margin: auto;
+  
+}
+
+#title {
+  font-size: 28px;
+
+}
+
+.container {
+  display: flex;
+  flex-direction: column;  /*要素を縦に配置*/
+  justify-content: center; /* 中央揃え */
+  align-items: center; /* 垂直方向に中央 */
+  height: 100vh; /* ビューポートの高さいっぱいに広げる */
+  gap: 10px; /* エレメント間の間隔 */
+  width: 100%;
+  font-family: 'Poppins', sans-serif; /* 日本語フォント */
+  /*font-family: 'Noto Sans JP', sans-serif; /* 日本語フォント */
+}
+
+.btn {
+  background-color: #007bff; /* 青色 */
+  color: white; /* 文字色 */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  width: 100px;
+  margin-top: 15px;
+}
+
+.btn:hover {
+  background-color: #0056b3; /* ホバー時に少し濃く */
+}
+
+
+
