@@ -13,8 +13,8 @@ body {
 }
 
 #title {
-  font-size: 80px;
-  margin-bottom: 10px;
+  font-size: 60px;
+  margin-bottom: 100px;
 }
 
 .container {
@@ -39,7 +39,7 @@ body {
   cursor: pointer;
   font-size: 20px;
   width: 100px;
-  margin-top: 15px;
+  margin-top: 50px;
 }
 
 .btn:hover {
@@ -57,8 +57,9 @@ body {
   color: white; /* テキストの色 */
   border: none; /* ボーダーなし */
   border-radius: 5px; /* 角を丸くする */
-  font-size: 30px; /* フォントサイズ */
+  font-size: 50px; /* フォントサイズ */
   width: 200px;
+  margin-top: 50px;
   cursor: pointer; /* カーソルをポインターに */
   transition: background-color 0.3s ease, transform 0.2s ease; /* スムーズな遷移 */
 }
