@@ -128,11 +128,11 @@ body {
 }
 
 .black-key {
-  width: 52px; /* 黒鍵の幅 */
+  width: 55px; /* 黒鍵の幅 */
   height: 230px; /* 黒鍵の高さ */
   background: black;
   position: absolute;
-  z-index: 2;
+  z-index: 10;
   cursor: pointer;
 }
 .black-key:active {
@@ -146,11 +146,20 @@ body {
 .black-key:nth-child(9) { margin-left: 212px;  } /* G# */
 .black-key:nth-child(11) { margin-left: 256px;  } /* A# */
 
+.read-key {
+  position: absolute;
+  z-index: 30;
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 300px;
+  font-family: 'Poppins', sans-serif; /* 日本語フォント */
+}
 
-/*
-.black-key:nth-child(2) { left: 10%; } /* C# *
-.black-key:nth-child(4) { left: 26%; } /* D# *
-.black-key:nth-child(7) { left: 52%; } /* F# *
-.black-key:nth-child(9) { left: 68%; } /* G# *
-.black-key:nth-child(11) { left: 83.5%; } /* A# *
-*/
+.read-key:nth-child(18) { margin-left: 50px; } /* F */
+.read-key:nth-child(20) { margin-left: 42px; } /* G */
+.read-key:nth-child(22) { margin-left: 39px; } /* A */
+.read-key:nth-child(24) { margin-left: 40px; } /* B */
+
+
+
+
