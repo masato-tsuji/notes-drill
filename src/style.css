@@ -149,7 +149,7 @@ body {
 .read-key {
   position: absolute;
   z-index: 30;
-  font-size: 32px;
+  font-size: 34px;
   font-weight: bold;
   margin-top: 300px;
   font-family: 'Poppins', sans-serif; /* 日本語フォント */

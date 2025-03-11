@@ -26,7 +26,7 @@ const objPiano = () => {
           }
   
           // keyElement.addEventListener('mousedown', () => playSound(key));
-          // keyElement.addEventListener('touchstart', () => playSound(key));
+          keyElement.addEventListener('touchstart', () => playSound(key));
 
           pianoElement.appendChild(keyElement);
           // pianoElement.appendChild(readElement);
