@@ -13,7 +13,7 @@ body {
 }
 
 #title {
-  font-size: 60px;
+  font-size: 70px;
   margin-bottom: 100px;
 }
 
@@ -57,8 +57,8 @@ body {
   color: white; /* テキストの色 */
   border: none; /* ボーダーなし */
   border-radius: 5px; /* 角を丸くする */
-  font-size: 50px; /* フォントサイズ */
-  width: 200px;
+  font-size: 60px; /* フォントサイズ */
+  width: 300px;
   margin-top: 50px;
   cursor: pointer; /* カーソルをポインターに */
   transition: background-color 0.3s ease, transform 0.2s ease; /* スムーズな遷移 */
