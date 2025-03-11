@@ -53,11 +53,12 @@ body {
 .button {
   display: inline-block; /* インラインブロックで配置 */
   padding: 12px 20px; /* ボタン内の余白 */
-  background-color: #dddca1; /* ボタンの背景色 */
-  color: #df3a3a; /* テキストの色 */
+  background-color: #007bff; /* ボタンの背景色 */
+  color: white; /* テキストの色 */
   border: none; /* ボーダーなし */
   border-radius: 5px; /* 角を丸くする */
-  font-size: 16px; /* フォントサイズ */
+  font-size: 30px; /* フォントサイズ */
+  width: 200px;
   cursor: pointer; /* カーソルをポインターに */
   transition: background-color 0.3s ease, transform 0.2s ease; /* スムーズな遷移 */
 }
