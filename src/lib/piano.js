@@ -5,7 +5,12 @@ const objPiano = () => {
   const pianoElement = document.getElementById('piano');
   
   function createPianoKeys() {
-      const keys = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+      const keysEng = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+      const keysGny = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
+      const keysIta = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
+
+      const keys = keysEng;
+
       keys.forEach((key, index) => {
           const isBlackKey = key.includes('#');
           const keyElement = document.createElement('div');
@@ -15,13 +20,32 @@ const objPiano = () => {
               keyElement.style.left = `${index * 40 }px`; // 白鍵の上に配置
           } else {
               keyElement.className = 'white-key';
+              // readElement.className = 'read-key';
+              // readElement.innerText = key;
+              // readElement.style.left = `${index * 60 + 37}px`; // 白鍵の上に配置
           }
   
-          keyElement.addEventListener('mousedown', () => playSound(key));
-          keyElement.addEventListener('touchstart', () => playSound(key));
-  
+          // keyElement.addEventListener('mousedown', () => playSound(key));
+          // keyElement.addEventListener('touchstart', () => playSound(key));
+
           pianoElement.appendChild(keyElement);
+          // pianoElement.appendChild(readElement);
       });
+
+      keys.forEach((key, index) => {
+        const isBlackKey = key.includes('#');
+        const readElement = document.createElement('div');
+
+        if (!isBlackKey) {
+            readElement.className = 'read-key';
+            readElement.innerText = key;
+            readElement.style.left = `${index * 58 + 37}px`; // 白鍵の上に配置
+        }
+
+        pianoElement.appendChild(readElement);
+
+      });
+
   }
   
   function playSound(note) {
