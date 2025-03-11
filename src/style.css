@@ -54,7 +54,7 @@ body {
   display: inline-block; /* インラインブロックで配置 */
   padding: 12px 20px; /* ボタン内の余白 */
   background-color: #007bff; /* ボタンの背景色 */
-  color: white; /* テキストの色 */
+  color: red; /* テキストの色 */
   border: none; /* ボーダーなし */
   border-radius: 5px; /* 角を丸くする */
   font-size: 60px; /* フォントサイズ */
