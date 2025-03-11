@@ -17,6 +17,9 @@ body {
   margin-bottom: 100px;
 }
 
+
+
+
 .container {
   display: flex;
   flex-direction: column;  /*要素を縦に配置*/
@@ -28,6 +31,9 @@ body {
   font-family: 'Poppins', sans-serif; /* 日本語フォント */
   /*font-family: 'Noto Sans JP', sans-serif; /* 日本語フォント */
 }
+
+
+
 
 
 .btn {
@@ -54,7 +60,7 @@ body {
   display: inline-block; /* インラインブロックで配置 */
   padding: 12px 20px; /* ボタン内の余白 */
   background-color: #007bff; /* ボタンの背景色 */
-  color: red; /* テキストの色 */
+  color: white; /* テキストの色 */
   border: none; /* ボーダーなし */
   border-radius: 5px; /* 角を丸くする */
   font-size: 60px; /* フォントサイズ */
@@ -89,4 +95,52 @@ body {
 }
 
 
+/*--------------------- piano ---------------------*/
 
+.container_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#piano {
+  position: relative;
+  display: flex;
+}
+
+.white-key {
+  width: 100px; /* 白鍵の幅 */
+  height: 365px; /* 白鍵の高さ */
+  background: white;
+  border: 1px solid #ccc;
+  margin-right: 5px;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.black-key {
+  width: 49px; /* 黒鍵の幅 */
+  height: 225px; /* 黒鍵の高さ */
+  background: black;
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* 黒鍵の正しい位置 */
+.black-key:nth-child(2) { margin-left: 0px; } /* C# */
+.black-key:nth-child(4) { margin-left: 41px; } /* D# */
+.black-key:nth-child(7) { margin-left: 120px;  } /* F# */
+.black-key:nth-child(9) { margin-left: 155px;  } /* G# */
+.black-key:nth-child(11) { margin-left: 190px;  } /* A# */
+
+
+/*
+.black-key:nth-child(2) { left: 10%; } /* C# *
+.black-key:nth-child(4) { left: 26%; } /* D# *
+.black-key:nth-child(7) { left: 52%; } /* F# *
+.black-key:nth-child(9) { left: 68%; } /* G# *
+.black-key:nth-child(11) { left: 83.5%; } /* A# *
+*/

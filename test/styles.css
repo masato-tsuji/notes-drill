@@ -1,0 +1,49 @@
+/* styles.css */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+#piano {
+  position: relative;
+  display: flex;
+}
+
+.white-key {
+  width: 100px; /* 白鍵の幅 */
+  height: 370px; /* 白鍵の高さ */
+  background: white;
+  border: 1px solid #ccc;
+  margin-right: 5px;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.black-key {
+  width: 50px; /* 黒鍵の幅 */
+  height: 225px; /* 黒鍵の高さ */
+  background: black;
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* 黒鍵の正しい位置 */
+.black-key:nth-child(2) { left: 10%; } /* C# */
+.black-key:nth-child(4) { left: 26%; } /* D# */
+.black-key:nth-child(7) { left: 52%; } /* F# */
+.black-key:nth-child(9) { left: 68%; } /* G# */
+.black-key:nth-child(11) { left: 83.5%; } /* A# */
+
+
+/*
+.black-key:nth-child(2) { left: 26px; } /* C# *
+.black-key:nth-child(4) { left: 68px; } /* D# *
+.black-key:nth-child(7) { left: 153px; } /* F# *
+.black-key:nth-child(9) { left: 195px; } /* G# *
+.black-key:nth-child(11) { left: 237px; } /* A# *
+*/
