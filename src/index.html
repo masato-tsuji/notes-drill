@@ -8,6 +8,7 @@
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
     <title>Notes Drill for mina</title>
     <link rel="stylesheet" href="style.css?v=1.0.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vexflow/3.0.9/vexflow-min.js"></script>
     <script type="text/javascript" src="./lib/notes.js"></script>
     <script type="text/javascript" src="./lib/piano.js"></script>
     <script type="text/javascript" src="script.js"></script>
@@ -16,16 +17,16 @@
   </head>
   <body>
     <div class="container" id="main-menu">
-      <div id="title">Notes Drill for mina</div>
+      <div class="typing-display" id="title"></div>
       <button class="button" id="btn-start">Start</button>
       <button class="button" id="btn-record">Record</button>
       <button class="button" id="btn-setting">Setting</button>
 
     </div>
     <div  class="container" id="drill-area">
-      <div>オプション</div>
-      <div>音符</div>
-      <div>結果</div>
+      <div id="opt-area">オプション</div>
+      <div id="note-area">音符</div>
+      <div id="res-area">結果</div>
       <div class="container_row" id="piano-keys">
         <div id="piano">
           <!-- 鍵盤がここに描画される -->

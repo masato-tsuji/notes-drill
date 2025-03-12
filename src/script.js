@@ -2,10 +2,46 @@
 // 音符の情報をfirebaseから取得
 
 
+// const notes = objNotes();
+
+/**
+ * 引数で受け取った要素に受け取った文字をタイピング風に出力
+ * @param {object} element - 文字列の出力先の要素
+ * @returns {object} - タイピングを開始する関数
+ */
+const typing = (element) => {
+  const defaultMsecDelay = 30;
+  let index = 0;
+  let intervalId;
+  let summary;
+  const write = () => {
+      element.innerHTML += summary[index];
+      index++;
+      if (index > summary.length - 1) {
+          clearInterval(intervalId);
+      }
+  }
+  const execInterval = (argSumm, argMsDelay) => {
+      execInterval.reset();
+      summary = argSumm;
+      const msDelay = argMsDelay > 0 ? argMsDelay : defaultMsecDelay;
+      intervalId = setInterval(write, msDelay);
+  }
+  execInterval.start = () => execInterval();
+  execInterval.stop = () => clearInterval(intervalId);
+  execInterval.reset = () => {
+      clearInterval(intervalId);
+      element.innerText = "";
+      index = 0;
+  }
+  return execInterval;
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
+  const divTitle = document.querySelector("#title");  /* title */
   const divMenu = document.querySelector("#main-menu");  /* Startボタン */
-  const divPiano = document.querySelector("#piano-keys");  /* Startボタン */
   const devDrill = document.querySelector("#drill-area");  /* Startボタン */
   const btnStart = document.querySelector("#btn-start");  /* Startボタン */
 
@@ -14,13 +50,21 @@ document.addEventListener('DOMContentLoaded', () => {
     devDrill.style.display = "flex";
   });
 
+  // タイトル表示
+  setTimeout(() => {
+    const t = typing(divTitle);
+    t("Notes Drill for mina", 75);
+  }, 3000);
 
+  objPiano();
+  const notes = objNotes();
+  notes();
 });
 
 
 // ページロード完了
 window.onload = function() {
-  objPiano();
+
 };
 
 

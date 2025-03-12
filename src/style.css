@@ -32,7 +32,7 @@ body {
 
 
 
-
+/* 不使用 */
 .btn {
   background-color: #007bff; /* 青色 */
   color: white; /* 文字色 */
@@ -91,11 +91,48 @@ body {
   }
 }
 
+/* タイピングエフェクト */
+.typing-display::after {
+  content: "|";
+  animation: blinking 0.7s ease-in-out infinite alternate;
+}
+@keyframes blinking {
+0% {opacity: 0;}
+100% {opacity: 1;}
+}
+
+
+
 /*--------------------- ドリルエリア ---------------------*/
 #drill-area {
   display: none;
+  padding-top: 50px;
 }
 
+#opt-area {
+  display: flex;
+  position: block;
+  /*flex-direction: row;  要素を横に配置*/
+  /* height: 100px; */
+  /* width: 500px; */
+  border-style: dashed;
+  border-color: red;
+
+  /* position: relative; */
+}
+
+#note-area {
+  /* height: 100px; */
+  border-style: dashed;
+  border-color: red;
+  background-color: white;
+}
+
+#res-area {
+  height: 100px;
+  border-style: dashed;
+  border-color: red;
+}
 
 
 /*--------------------- piano ---------------------*/
@@ -161,5 +198,84 @@ body {
 .read-key:nth-child(24) { margin-left: 40px; } /* B */
 
 
+/*-------------------- 楽譜 ----------------------*/
 
+/* .vf-stave path {
+  stroke: red !important;
+}
+
+g.vf-clef path {
+  fill: white !important;
+  stroke: white !important;
+}
+
+g.vf-notehead path {
+  fill: white !important;
+  stroke: white !important;
+} */
+
+
+/*---------------- トグルスイッチ --------------*/
+/* 
+<div class="cnf_tgl">
+<input type="checkbox" id="input-id-name">
+<label for="input-id-name"></label>
+<span class="class_name">表示</span>
+</div> 
+*/
+
+
+.cnf-tgl {
+  position: relative;
+  height: 35px;
+  width: 200px;
+  margin-top: 20px;
+  font-size: 20px;    /*サイズに指定にトグルサイズ追従*/
+}
+
+.cnf-tgl > input {
+  display: none;
+}
+
+.cnf-tgl > label {
+  display: block;
+  position: relative;
+  width: 2.8em;
+  height: 1.5em;
+  border-radius: 1.5em;
+  background-color: #dadada;
+  cursor: pointer;
+}
+
+.cnf-tgl > input:checked + label {
+  background-color: #007bff;
+}
+
+.cnf-tgl > label::before {
+  content: "";
+  position: absolute;
+  top: 0.1em;
+  left: 0.1em;
+  width: calc(1.5em - 0.2em);
+  height: calc(1.5em - 0.2em);
+  border-radius: calc(1.5em - 0.2em);
+  background-color: #fff;
+  transition: 0.5s;
+}
+
+.cnf-tgl > input:checked + label::before {
+  left: calc(100% - 1.5em + 0.05em);
+}
+
+.cnf-tgl > span {
+  position: relative;
+  top: -28px;
+  left: 70px;
+  color: #aaaaaa;
+}
+
+.cnf-tgl > input:checked + label + span {
+  color: #180474;
+  font-weight: bold;
+}
 
