@@ -25,12 +25,10 @@ body {
   height: 100vh; /* ビューポートの高さいっぱいに広げる */
   gap: 10px; /* エレメント間の間隔 */
   width: 100%;
+  font-size: 50px;
   font-family: 'Poppins', sans-serif; /* 日本語フォント */
   /*font-family: 'Noto Sans JP', sans-serif; /* 日本語フォント */
 }
-
-
-
 
 /* 不使用 */
 .btn {

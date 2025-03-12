@@ -90,7 +90,7 @@ const objNotes = () => {
 
       // 五線譜を描画
       // const staveSvg = new Stave(10, 40, 200);
-      const staveSvg = new Stave(60, -15, 100); // キャンバスの中の位置(Left, top, long)
+      const staveSvg = new Stave(60, -15, 110); // キャンバスの中の位置(Left, top, long)
       // staveSvg.addClef("bass");
       staveSvg.addClef("treble");
       staveSvg.setContext(contextSvg).draw();
@@ -98,6 +98,8 @@ const objNotes = () => {
       // 新しい音符を作成
       // const noteSvg = new StaveNote({ keys: [notes[currentNoteIndex]], duration: "w" });
       const noteSvg = new StaveNote({ keys: ["g/4"], duration: "w" });
+      noteSvg.addAccidental(0, new Accidental("#"));
+      // noteSvg.addAccidental(0, new Accidental("b"));
 
       // シャープ追加（必要なら）
       if (notes[currentNoteIndex].includes("#")) {
