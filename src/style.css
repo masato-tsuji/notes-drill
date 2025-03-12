@@ -122,9 +122,10 @@ body {
 }
 
 #note-area {
-  height: 100px;
+  /* height: 100px; */
   border-style: dashed;
   border-color: red;
+  background-color: white;
 }
 
 #res-area {
@@ -195,6 +196,24 @@ body {
 .read-key:nth-child(20) { margin-left: 42px; } /* G */
 .read-key:nth-child(22) { margin-left: 39px; } /* A */
 .read-key:nth-child(24) { margin-left: 40px; } /* B */
+
+
+/*-------------------- 楽譜 ----------------------*/
+
+/* .vf-stave path {
+  stroke: red !important;
+}
+
+g.vf-clef path {
+  fill: white !important;
+  stroke: white !important;
+}
+
+g.vf-notehead path {
+  fill: white !important;
+  stroke: white !important;
+} */
+
 
 /*---------------- トグルスイッチ --------------*/
 /* 

@@ -13,7 +13,7 @@ const objNotes = () => {
     const cnfWakeMode = true;   // 苦手優先
 
 
-    // オプションのイベント設定
+    // オプションのイベント設定 firebaseへ保存
     document.querySelectorAll(".cnf-tgl > input").forEach( elm => {
       elm.addEventListener("change", (e) => {
           
@@ -70,6 +70,48 @@ const objNotes = () => {
 
 
   // 出題
+  const { Renderer, Stave, StaveNote, Accidental } = Vex.Flow;
+  // 対象のdivを取得
+  const divSvg = document.getElementById("note-area");
+
+  let currentNoteIndex = 0;
+  const notes = ["C4", "D4", "E4", "F#4", "G4"]; // 音階リスト
+
+  function drawSvgNote() {
+      // 既存のSVGをクリア
+      divSvg.innerHTML = "";
+
+      // SVG用のRendererを作成
+      const rendererSvg = new Renderer(divSvg, Renderer.Backends.SVG);
+      rendererSvg.resize(800, 320); // キャンバスサイズ
+      const contextSvg = rendererSvg.getContext();
+
+      contextSvg.scale(2.5, 2.5);   // 楽譜の大きさの倍率
+
+      // 五線譜を描画
+      // const staveSvg = new Stave(10, 40, 200);
+      const staveSvg = new Stave(105, 8, 100); // キャンバスの中の位置(Left, top, long)
+      // staveSvg.addClef("bass");
+      staveSvg.addClef("treble");
+      staveSvg.setContext(contextSvg).draw();
+
+      // 新しい音符を作成
+      // const noteSvg = new StaveNote({ keys: [notes[currentNoteIndex]], duration: "w" });
+      const noteSvg = new StaveNote({ keys: ["g/4"], duration: "w" });
+
+      // シャープ追加（必要なら）
+      if (notes[currentNoteIndex].includes("#")) {
+          noteSvg.addAccidental(0, new Accidental("#"));
+      }
+
+      // 音符を描画
+      Vex.Flow.Formatter.FormatAndDraw(contextSvg, staveSvg, [noteSvg]);
+
+      // 次の音階へ
+      currentNoteIndex = (currentNoteIndex + 1) % notes.length;
+  }
+  // 初回描画
+  drawSvgNote();
 
 
   // 回答チェック
