@@ -91,6 +91,18 @@ body {
   }
 }
 
+/* タイピングエフェクト */
+.typing-display::after {
+  content: "|";
+  animation: blinking 0.7s ease-in-out infinite alternate;
+}
+@keyframes blinking {
+0% {opacity: 0;}
+100% {opacity: 1;}
+}
+
+
+
 /*--------------------- ドリルエリア ---------------------*/
 #drill-area {
   display: none;
@@ -98,11 +110,15 @@ body {
 }
 
 #opt-area {
-  height: 100px;
+  display: flex;
+  position: block;
+  /*flex-direction: row;  要素を横に配置*/
+  /* height: 100px; */
+  /* width: 500px; */
   border-style: dashed;
   border-color: red;
-  position: relative;
-  display: flex;
+
+  /* position: relative; */
 }
 
 #note-area {
@@ -180,8 +196,7 @@ body {
 .read-key:nth-child(22) { margin-left: 39px; } /* A */
 .read-key:nth-child(24) { margin-left: 40px; } /* B */
 
-
-/* トグルスイッチ */
+/*---------------- トグルスイッチ --------------*/
 /* 
 <div class="cnf_tgl">
 <input type="checkbox" id="input-id-name">
@@ -194,6 +209,7 @@ body {
 .cnf-tgl {
   position: relative;
   height: 35px;
+  width: 200px;
   margin-top: 20px;
   font-size: 20px;    /*サイズに指定にトグルサイズ追従*/
 }
@@ -213,7 +229,7 @@ body {
 }
 
 .cnf-tgl > input:checked + label {
-  background-color: #00a118;
+  background-color: #007bff;
 }
 
 .cnf-tgl > label::before {
