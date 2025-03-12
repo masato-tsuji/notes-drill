@@ -115,23 +115,23 @@ body {
   /*flex-direction: row;  要素を横に配置*/
   /* height: 100px; */
   /* width: 500px; */
-  border-style: dashed;
-  border-color: red;
+  /* border-style: dashed; */
+  /* border-color: red; */
 
   /* position: relative; */
 }
 
 #note-area {
   /* height: 100px; */
-  border-style: dashed;
-  border-color: red;
+  /* border-style: dashed; */
+  /* border-color: red; */
   background-color: white;
 }
 
 #res-area {
   height: 100px;
-  border-style: dashed;
-  border-color: red;
+  /* border-style: dashed; */
+  /* border-color: red; */
 }
 
 
