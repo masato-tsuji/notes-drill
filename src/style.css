@@ -32,7 +32,7 @@ body {
 
 
 
-
+/* 不使用 */
 .btn {
   background-color: #007bff; /* 青色 */
   color: white; /* 文字色 */
@@ -94,8 +94,26 @@ body {
 /*--------------------- ドリルエリア ---------------------*/
 #drill-area {
   display: none;
+  padding-top: 50px;
 }
 
+#opt-area {
+  height: 100px;
+  border-style: dashed;
+  border-color: red;
+}
+
+#note-area {
+  height: 100px;
+  border-style: dashed;
+  border-color: red;
+}
+
+#res-area {
+  height: 100px;
+  border-style: dashed;
+  border-color: red;
+}
 
 
 /*--------------------- piano ---------------------*/
