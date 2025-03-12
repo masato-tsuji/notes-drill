@@ -37,6 +37,10 @@ const typing = (element) => {
   return execInterval;
 }
 
+// 配列の中からランダムに一つ要素を返す
+const rndChoice = array => {
+  return array[Math.floor(Math.random() * array.length)];
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 

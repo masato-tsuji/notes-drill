@@ -25,8 +25,8 @@ const objPiano = () => {
             // readElement.style.left = `${index * 60 + 37}px`; // 白鍵の上に配置
         }
 
-        keyElement.addEventListener('mousedown', () => touchKey(key));
-        // keyElement.addEventListener('touchstart', () => touchKey(key));
+        // keyElement.addEventListener('mousedown', () => touchKey(key));
+        keyElement.addEventListener('touchstart', () => touchKey(key));
 
         pianoElement.appendChild(keyElement);
         // pianoElement.appendChild(readElement);
