@@ -139,7 +139,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center; /* 垂直方向に中央 */
-  height: 100vh;
+  height: 500px; /* 100vh; */
   width: 100%;
 }
 
