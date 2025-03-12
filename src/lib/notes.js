@@ -86,11 +86,11 @@ const objNotes = () => {
       rendererSvg.resize(800, 320); // キャンバスサイズ
       const contextSvg = rendererSvg.getContext();
 
-      contextSvg.scale(2.5, 2.5);   // 楽譜の大きさの倍率
+      contextSvg.scale(3.5, 3.5);   // 楽譜の大きさの倍率
 
       // 五線譜を描画
       // const staveSvg = new Stave(10, 40, 200);
-      const staveSvg = new Stave(105, 8, 100); // キャンバスの中の位置(Left, top, long)
+      const staveSvg = new Stave(60, -15, 100); // キャンバスの中の位置(Left, top, long)
       // staveSvg.addClef("bass");
       staveSvg.addClef("treble");
       staveSvg.setContext(contextSvg).draw();
