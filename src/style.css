@@ -101,6 +101,8 @@ body {
   height: 100px;
   border-style: dashed;
   border-color: red;
+  position: relative;
+  display: flex;
 }
 
 #note-area {
@@ -179,5 +181,66 @@ body {
 .read-key:nth-child(24) { margin-left: 40px; } /* B */
 
 
+/* トグルスイッチ */
+/* 
+<div class="cnf_tgl">
+<input type="checkbox" id="input-id-name">
+<label for="input-id-name"></label>
+<span class="class_name">表示</span>
+</div> 
+*/
 
+
+.cnf-tgl {
+  position: relative;
+  height: 35px;
+  margin-top: 20px;
+  font-size: 20px;    /*サイズに指定にトグルサイズ追従*/
+}
+
+.cnf-tgl > input {
+  display: none;
+}
+
+.cnf-tgl > label {
+  display: block;
+  position: relative;
+  width: 2.8em;
+  height: 1.5em;
+  border-radius: 1.5em;
+  background-color: #dadada;
+  cursor: pointer;
+}
+
+.cnf-tgl > input:checked + label {
+  background-color: #00a118;
+}
+
+.cnf-tgl > label::before {
+  content: "";
+  position: absolute;
+  top: 0.1em;
+  left: 0.1em;
+  width: calc(1.5em - 0.2em);
+  height: calc(1.5em - 0.2em);
+  border-radius: calc(1.5em - 0.2em);
+  background-color: #fff;
+  transition: 0.5s;
+}
+
+.cnf-tgl > input:checked + label::before {
+  left: calc(100% - 1.5em + 0.05em);
+}
+
+.cnf-tgl > span {
+  position: relative;
+  top: -28px;
+  left: 70px;
+  color: #aaaaaa;
+}
+
+.cnf-tgl > input:checked + label + span {
+  color: #180474;
+  font-weight: bold;
+}
 
