@@ -42,6 +42,12 @@ const rndChoice = array => {
   return array[Math.floor(Math.random() * array.length)];
 }
 
+
+function isTouchDevice() {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
   const divTitle = document.querySelector("#title");  /* title */
@@ -61,12 +67,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 3000);
 
   const piano = objPiano();
-  const notes = objNotes();
+  const notes = new objNotes();
 
+
+  
+  
 
 
 
 });
+
+
+// 鍵盤押下
+const ansorQuestion = (key) => {
+
+}
 
 
 // ページロード完了

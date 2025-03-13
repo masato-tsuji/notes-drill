@@ -25,14 +25,16 @@ const objPiano = () => {
             // readElement.style.left = `${index * 60 + 37}px`; // 白鍵の上に配置
         }
 
-        // keyElement.addEventListener('mousedown', () => touchKey(key));
-        keyElement.addEventListener('touchstart', () => touchKey(key));
+        if (isTouchDevice) {
+          keyElement.addEventListener('touchstart', () => touchKey(key));
+        } else {
+          keyElement.addEventListener('mousedown', () => touchKey(key));
+        }
 
         pianoElement.appendChild(keyElement);
         // pianoElement.appendChild(readElement);
     });
 
-    // 白盤の上の文字
     keys.forEach((key, index) => {
       const isBlackKey = key.includes('#');
       const readElement = document.createElement('div');
@@ -52,13 +54,14 @@ const objPiano = () => {
   function touchKey(note) {
     // console.log(`${note} の音が鳴りました`);
     // サウンドを鳴らすための処理をここに追加
+    ansorQuestion(note);
+    
 
-    console.log(note);
+    // console.log(note);
 
   }
   
-  createPianoKeys();
-  return objPiano;
+  return createPianoKeys();
 
 }
 
