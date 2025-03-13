@@ -74,7 +74,6 @@ const objNotes = () => {
   // 対象のdivを取得
   const divSvg = document.getElementById("note-area");
 
-  let currentNoteIndex = 0;
   const notes = 
       ["C4", "D4", "E4", "F#4", "G4"]; // 音階リスト
 
@@ -86,59 +85,65 @@ const objNotes = () => {
   ]
 
   function drawSvgNote() {
-      // 既存のSVGをクリア
-      divSvg.innerHTML = "";
+    // 既存のSVGをクリア
+    divSvg.innerHTML = "";
 
-      // SVG用のRendererを作成
-      const rendererSvg = new Renderer(divSvg, Renderer.Backends.SVG);
-      rendererSvg.resize(800, 400); // キャンバスサイズ
-      const contextSvg = rendererSvg.getContext();
+    // SVG用のRendererを作成
+    const rendererSvg = new Renderer(divSvg, Renderer.Backends.SVG);
+    rendererSvg.resize(800, 400); // キャンバスサイズ
+    const contextSvg = rendererSvg.getContext();
 
-      contextSvg.scale(3.5, 3.5);   // 楽譜の大きさの倍率
+    contextSvg.scale(3.5, 3.5);   // 楽譜の大きさの倍率
 
-      // 五線譜を描画
-      // const staveSvg = new Stave(10, 40, 200);
-      const staveSvg = new Stave(60, 5, 110); // キャンバスの中の位置(Left, top, long)
-      const clef = "bass";
-      staveSvg.addClef(clef);
-      // staveSvg.addClef("treble");
-      staveSvg.setContext(contextSvg).draw();
+    // 五線譜を描画
+    // const staveSvg = new Stave(10, 40, 200);
+    const staveSvg = new Stave(60, 5, 110); // キャンバスの中の位置(Left, top, long)
+    const clef = "bass";
+    staveSvg.addClef(clef);
+    // staveSvg.addClef("treble");
+    staveSvg.setContext(contextSvg).draw();
 
-      // 新しい音符を作成
-      const noteChoice = rndChoice(notesBass);
-      const note = noteChoice.substr(-3);
-      const noteSvg = new StaveNote({ clef: clef, keys: [note], duration: "w" });
-      // const noteSvg = new StaveNote({ clef: "bass", keys: ["e/4"], duration: "w" });
-      // noteSvg.addAccidental(0, new Accidental("#"));
-      // noteSvg.addAccidental(0, new Accidental("b"));
+    // 新しい音符を作成
+    const noteChoice = rndChoice(notesBass);
+    const note = noteChoice.substr(-3);
+    const noteSvg = new StaveNote({ clef: clef, keys: [note], duration: "w" });
+    // const noteSvg = new StaveNote({ clef: "bass", keys: ["e/4"], duration: "w" });
+    // noteSvg.addAccidental(0, new Accidental("#"));
+    // noteSvg.addAccidental(0, new Accidental("b"));
 
-      // シャープ追加（必要なら）
-      if (note.includes("#")) {
-          noteSvg.addAccidental(0, new Accidental("#"));
-      }
-      if (note.includes("b")) {
-          noteSvg.addAccidental(0, new Accidental("b"));
-      }
+    // シャープ追加（必要なら）
+    if (note.includes("#")) {
+        noteSvg.addAccidental(0, new Accidental("#"));
+    }
+    if (note.includes("b")) {
+        noteSvg.addAccidental(0, new Accidental("b"));
+    }
 
-      // 音符を描画
-      Vex.Flow.Formatter.FormatAndDraw(contextSvg, staveSvg, [noteSvg]);
+    // 音符を描画
+    Vex.Flow.Formatter.FormatAndDraw(contextSvg, staveSvg, [noteSvg]);
 
-      // 次の音階へ
-      currentNoteIndex = (currentNoteIndex + 1) % notes.length;
+    return noteChoice;  // b/4 a/3 bc/4 #g/3
+    
   }
   // 初回描画
-  drawSvgNote();
-
-
-  // 回答チェック
+  const question = drawSvgNote();
+  
+  // 回答チェック ※paino.jsから鍵盤タッチ時に実行される
+  const checkAns = (key) => {
+    if (true) {
+      correct = true;
+    }
+  }
 
 
   // 結果と正解表示
 
   // 結果をfirebaseに登録
 
-  
-  return initialize;
+
+  initialize();
+
+  return objNotes;
 }
 
 

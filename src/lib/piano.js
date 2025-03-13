@@ -32,6 +32,7 @@ const objPiano = () => {
         // pianoElement.appendChild(readElement);
     });
 
+    // 白盤の上の文字
     keys.forEach((key, index) => {
       const isBlackKey = key.includes('#');
       const readElement = document.createElement('div');
@@ -56,7 +57,8 @@ const objPiano = () => {
 
   }
   
-  return createPianoKeys();
+  createPianoKeys();
+  return objPiano;
 
 }
 
