@@ -118,7 +118,6 @@ const objScore = ((targetDiv) => {
     initialize: () => objInitialize(),
     drawNote: (note) => {
       drawSvgNote(note);
-      console.log("currentNote: " + note);
       currentNote = note;
     },
     getValue: () => currentNote

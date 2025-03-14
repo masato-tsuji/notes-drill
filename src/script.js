@@ -111,13 +111,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // console.log(`Key ${event.detail.key} touched`);
 
     const correctValue = score.getValue().split('/')[0];
-
+    let tmpCorrectVal = correctValue;
+    tmpCorrectVal = tmpCorrectVal.toUpperCase();
+    tmpCorrectVal = tmpCorrectVal.replace("_", "♭");
+    tmpCorrectVal = tmpCorrectVal.replace("#", "＃");
+    const correctDispValue = tmpCorrectVal;
 
     // 判定 押した黒鍵のコードは#とbの２つをcsvで受け取る
     const keys = event.detail.key.split(',');
     let flgCorrect = false;
     keys.forEach( key => {
-      if (correctValue.includes(key)) {
+      if (key.includes(correctValue)) {
+        console.log(`touch: ${key} - correct: ${correctValue}`);
         flgCorrect = true;
       }
     });
@@ -127,10 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 表示 成否と正解答
     // resArea.innerHTML = `${score.getValue()} : ${event.detail.key}`;
     if (flgCorrect) {
-      resArea.innerHTML = `正解🙆‍♂️ ${correctValue}`;
+      resArea.innerHTML = `正解🙆‍♂️ ${correctDispValue}`;
       
     } else {
-      resArea.innerHTML = `惜しい😝 ${correctValue}`;
+      resArea.innerHTML = `惜しい😝 ${correctDispValue}`;
 
     }
 
