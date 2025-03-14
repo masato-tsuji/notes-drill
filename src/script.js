@@ -63,12 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
     t("Notes Drill for mina", 75);
   }, 3000);
 
-  const piano = objPiano();
-  const notes = new objNotes();
+  const piano = objPiano('piano');
+  const notes = objNotes();
 
-
-  
-  
 
 
 
