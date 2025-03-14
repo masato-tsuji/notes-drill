@@ -3,7 +3,6 @@
 
 const objPiano = () => {
   const pianoElement = document.getElementById('piano');
-  
   function createPianoKeys() {
     const keysEng = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     const keysGny = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
@@ -54,8 +53,6 @@ const objPiano = () => {
   function touchKey(note) {
     // console.log(`${note} の音が鳴りました`);
     // サウンドを鳴らすための処理をここに追加
-    ansorQuestion(note);
-    
 
     // console.log(note);
 
