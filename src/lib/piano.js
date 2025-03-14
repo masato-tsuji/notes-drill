@@ -49,7 +49,7 @@ const objPiano = ((targetDiv) => {
         // イベント登録
         if (isTouchDevice) {
           keyElement.addEventListener('touchstart', () => touchKey(key));
-          keyElement.addEventListener('mousedown', () => touchKey(key));
+          // keyElement.addEventListener('mousedown', () => touchKey(key));
         } else {
           keyElement.addEventListener('mousedown', () => touchKey(key));
         }
