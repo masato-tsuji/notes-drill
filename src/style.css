@@ -127,10 +127,11 @@ body {
 }
 
 #btn-question {
-  width: 120px;
-  height: 60px;
+  width: 160px;
+  height: 80px;
   font-size: 42px;
-  margin-bottom: 6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #res-area {
