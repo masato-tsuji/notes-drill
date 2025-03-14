@@ -44,38 +44,44 @@ const rndChoice = array => {
 
 
 
-
 document.addEventListener('DOMContentLoaded', () => {
 
   const divTitle = document.querySelector("#title");  /* title */
   const divMenu = document.querySelector("#main-menu");  /* Startボタン */
   const devDrill = document.querySelector("#drill-area");  /* Startボタン */
   const btnStart = document.querySelector("#btn-start");  /* Startボタン */
-
+  
   btnStart.addEventListener("click", (e) => {
     divMenu.style.display = "none";
     devDrill.style.display = "flex";
   });
-
+  
   // タイトル表示
   setTimeout(() => {
     const t = typing(divTitle);
     t("Notes Drill for mina", 75);
   }, 3000);
-
+  
   const piano = objPiano('piano');
   const notes = objNotes();
-
-
-
-
+  
+  // オプション変更
+  
+  
+  
+  // ピアノ打鍵イベント
+  document.addEventListener('keyTouched', (event) => {
+    console.log(`Key ${event.detail.key} touched`);
+  });
+  
+  
+  
+  
 });
 
 
-// 鍵盤押下
-const ansorQuestion = (key) => {
 
-}
+
 
 
 // ページロード完了
