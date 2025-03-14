@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let flgCorrect = false;
     keys.forEach( key => {
       if (key.includes(correctValue)) {
-        console.log(`touch: ${key} - correct: ${correctValue}`);
+        // console.log(`touch: ${key} - correct: ${correctValue}`);
         flgCorrect = true;
       }
     });
