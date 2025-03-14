@@ -24,7 +24,7 @@ const objPiano = ((targetDiv) => {
     const keysEng = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     const keysGny = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
     const keysIta = ['ド', 'ド#', 'レ', 'レ#', 'ミ', 'ファ', 'ファ#', 'ソ', 'ソ#', 'ラ', 'ラ#', 'シ'];
-    const keysVal = ['c', '#c', 'd', '#d', 'e', 'f', '#f', 'g', '#g', 'a', '#a', 'b']
+    const keysVal = ['c', '#c,_d', 'd', '#d,_e', 'e', 'f', '#f,_g', 'g', '#g,_a', 'a', '#a,_B', 'b']
     
     const dispKeys = keysEng;
     const keys = keysVal;
@@ -49,6 +49,7 @@ const objPiano = ((targetDiv) => {
         // イベント登録
         if (isTouchDevice) {
           keyElement.addEventListener('touchstart', () => touchKey(key));
+          keyElement.addEventListener('mousedown', () => touchKey(key));
         } else {
           keyElement.addEventListener('mousedown', () => touchKey(key));
         }
@@ -71,7 +72,7 @@ const objPiano = ((targetDiv) => {
   
   createPianoKeys();
 
-  // カスタムイベントを発火
+  // 鍵盤押下のイベント定義
   const touchKey = (key) => {
     const event = new CustomEvent('keyTouched', { detail: { key } });
     document.dispatchEvent(event);

@@ -1,8 +1,22 @@
 'use strict'
+
+
+// 設定定義
+
+
+const notesBass = [
+  'c/2', 'd/2', 'e/2', 'f/2', 'g/2', 'a/2', 'b/2', 'c/3', 'd/3', 'e/3', 'f/3', 'g/3', 'a/3', 'b/3',
+  'c/4', 'd/4', 'e/4', '#c/2', '#d/2', '#f/2', '#g/2', '#a/2', '#c/3', '#d/3', '#f/3', '#g/3', '#a/3',
+  '#c/4', '#d/4', '_d/2', '_e/2', '_g/2', '_a/2', '_b/2', '_d/3', '_e/3', '_g/3', '_a/3', '_b/3',
+  '_d/4', '_e/4'
+]
+
+
+
 // 音符の情報をfirebaseから取得
 
 
-// const notes = objNotes();
+
 
 /**
  * 引数で受け取った要素に受け取った文字をタイピング風に出力
@@ -47,9 +61,11 @@ const rndChoice = array => {
 document.addEventListener('DOMContentLoaded', () => {
 
   const divTitle = document.querySelector("#title");  /* title */
-  const divMenu = document.querySelector("#main-menu");  /* Startボタン */
-  const devDrill = document.querySelector("#drill-area");  /* Startボタン */
-  const btnStart = document.querySelector("#btn-start");  /* Startボタン */
+  const divMenu = document.querySelector("#main-menu");  /*  */
+  const devDrill = document.querySelector("#drill-area");  /*  */
+  const btnStart = document.querySelector("#btn-start");  /*  */
+  const resArea = document.getElementById("res-area");
+  const btnQuestion = document.getElementById("btn-question");
   
   btnStart.addEventListener("click", (e) => {
     divMenu.style.display = "none";
@@ -62,16 +78,68 @@ document.addEventListener('DOMContentLoaded', () => {
     t("Notes Drill for mina", 75);
   }, 3000);
   
-  const piano = objPiano('piano');
-  const notes = objNotes();
+
+
+  const piano = objPiano("piano");
+  const score = objScore("score-area");
+  
+  
+  // 記録表示
   
   // オプション変更
+  const notes = notesBass;
   
   
+  // 出題関数
+  const questionNote = (notes) => rndChoice(notes);
+  
+
+
+
+  // スタートボタンで初期化と出題
+  score.drawNote(questionNote(notes));
+
+  // 仮出題ボタン
+  btnQuestion.addEventListener("click", (e) => {
+    const choiceNote = questionNote(notes);
+    score.drawNote(choiceNote);
+    resArea.innerHTML = "";
+  });
   
   // ピアノ打鍵イベント
   document.addEventListener('keyTouched', (event) => {
-    console.log(`Key ${event.detail.key} touched`);
+    // console.log(`Key ${event.detail.key} touched`);
+
+    const correctValue = score.getValue().split('/')[0];
+
+
+    // 判定 押した黒鍵のコードは#とbの２つをcsvで受け取る
+    const keys = event.detail.key.split(',');
+    let flgCorrect = false;
+    keys.forEach( key => {
+      if (correctValue.includes(key)) {
+        flgCorrect = true;
+      }
+    });
+
+    // 結果をfirebaseに登録
+
+    // 表示 成否と正解答
+    // resArea.innerHTML = `${score.getValue()} : ${event.detail.key}`;
+    if (flgCorrect) {
+      resArea.innerHTML = `正解🙆‍♂️ ${correctValue}`;
+      
+    } else {
+      resArea.innerHTML = `惜しい😝 ${correctValue}`;
+
+    }
+
+    // 継続判定
+
+    // 出題
+    // score.drawNote(questionNote(notes));
+
+
   });
   
   
