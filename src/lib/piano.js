@@ -14,10 +14,7 @@ const objPiano = ((targetDiv) => {
     const dispKeys = keysEng;
     const keys = keysVal;
 
-    // タッチデバイスかを返す
-    const isTouchDevice = () => {
-      return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    }
+
 
     // 鍵盤作成
     keys.forEach((key, index) => {
@@ -31,12 +28,12 @@ const objPiano = ((targetDiv) => {
             keyElement.className = 'white-key';
         }
         
-        // イベント登録
-        if (isTouchDevice) {
-          keyElement.addEventListener('touchstart', () => touchKey(key));
-        } else {
-          keyElement.addEventListener('mousedown', () => touchKey(key));
-        }
+        // // イベント登録
+        // if (isTouchDevice) {
+        //   keyElement.addEventListener('touchstart', () => touchKey(key));
+        // } else {
+        //   keyElement.addEventListener('mousedown', () => touchKey(key));
+        // }
 
         pianoElement.appendChild(keyElement);
         // pianoElement.appendChild(readElement);
@@ -46,15 +43,12 @@ const objPiano = ((targetDiv) => {
     dispKeys.forEach((key, index) => {
       const isBlackKey = key.includes('#');
       const readElement = document.createElement('div');
-
       if (!isBlackKey) {
           readElement.className = 'read-key';
           readElement.innerText = key;
           readElement.style.left = `${index * 58 + 37}px`; // 白鍵の上に配置
       }
-
       pianoElement.appendChild(readElement);
-
     });
 
   }
@@ -68,6 +62,21 @@ const objPiano = ((targetDiv) => {
   // }
   
   createPianoKeys();
+
+  // タッチデバイスかを返す
+  const isTouchDevice = () => {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }
+  
+  // イベント登録
+  if (isTouchDevice) {
+    keyElement.addEventListener('touchstart', () => touchKey(key));
+  } else {
+    keyElement.addEventListener('mousedown', () => touchKey(key));
+  }
+
+
+
   return {
     touchKey: (note) => console.log(note)
   }
