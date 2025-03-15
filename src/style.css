@@ -105,7 +105,18 @@ body {
 }
 
 .soon {
+  display: inline-block; /* インラインブロックで配置 */
+  padding: 12px 20px; /* ボタン内の余白 */
   background-color: rgb(192, 192, 192);
+  color: white; /* テキストの色 */
+  border: none; /* ボーダーなし */
+  border-radius: 5px; /* 角を丸くする */
+  font-size: 60px; /* フォントサイズ */
+  width: 300px;
+  margin-top: 50px;
+  cursor: pointer; /* カーソルをポインターに */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* スムーズな遷移 */
+
 }
 
 /*--------------------- ドリルエリア ---------------------*/
