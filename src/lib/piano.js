@@ -3,29 +3,26 @@
 
 const objPiano = ((targetDiv) => {
   const pianoElement = document.getElementById(targetDiv);
+  const keysEng = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  const keysGny = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
+  const keysIta = ['ド', 'ド#', 'レ', 'レ#', 'ミ', 'ファ', 'ファ#', 'ソ', 'ソ#', 'ラ', 'ラ#', 'シ'];
+  const keysVal = ['c', '#c,_d', 'd', '#d,_e', 'e', 'f', '#f,_g', 'g', '#g,_a', 'a', '#a,_B', 'b']
   
-
-  // 白盤の上の文字を描画
+  // 鍵盤に音階表示
   const witeScaleName = (dispKeys) => {
-    dispKeys.forEach((key, index) => {
-      const isBlackKey = key.includes('#');
-      const readElement = document.createElement('div');
-      if (!isBlackKey) {
-          readElement.className = 'read-key';
-          readElement.innerText = key;
-          readElement.style.left = `${index * 58 + 37}px`; // 白鍵の上に配置
-      }
-      pianoElement.appendChild(readElement);
+    const filteredKeys = dispKeys.filter(key => !key.includes('#'));
+    document.querySelectorAll(".white-key").forEach((elm, index) => {
+      elm.innerText = filteredKeys[index];
     });
   }
 
+  // 鍵盤押下のイベント定義
+  const touchKey = (key, disp) => {
+    const event = new CustomEvent('keyTouched', { detail: { key, disp } });
+    document.dispatchEvent(event);
+  }
 
   function createPianoKeys() {
-    const keysEng = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-    const keysGny = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
-    const keysIta = ['ド', 'ド#', 'レ', 'レ#', 'ミ', 'ファ', 'ファ#', 'ソ', 'ソ#', 'ラ', 'ラ#', 'シ'];
-    const keysVal = ['c', '#c,_d', 'd', '#d,_e', 'e', 'f', '#f,_g', 'g', '#g,_a', 'a', '#a,_B', 'b']
-    
     const dispKeys = keysEng;
     const keys = keysVal;
     
@@ -38,6 +35,7 @@ const objPiano = ((targetDiv) => {
     keys.forEach((key, index) => {
       const isBlackKey = key.includes('#');
       const keyElement = document.createElement('div');
+      const disp = dispKeys[index];
 
         if (isBlackKey) {
             keyElement.className = 'black-key';
@@ -45,13 +43,13 @@ const objPiano = ((targetDiv) => {
         } else {
             keyElement.className = 'white-key';
         }
-        
         // イベント登録
-        if (isTouchDevice) {
-          keyElement.addEventListener('touchstart', () => touchKey(key));
+        if (isTouchDevice()) {
+          // タッチパネルのみに反応
+          keyElement.addEventListener('touchstart', () => touchKey(key, disp));
           // keyElement.addEventListener('mousedown', () => touchKey(key));
         } else {
-          keyElement.addEventListener('mousedown', () => touchKey(key));
+          keyElement.addEventListener('mousedown', () => touchKey(key, disp));
         }
 
         pianoElement.appendChild(keyElement);
@@ -62,29 +60,15 @@ const objPiano = ((targetDiv) => {
 
   }
   
-  // function touchKey(note) {
-  //   // console.log(`${note} の音が鳴りました`);
-  //   // サウンドを鳴らすための処理をここに追加
-
-  //   console.log(note);
-
-  // }
-  
   createPianoKeys();
 
-  // 鍵盤押下のイベント定義
-  const touchKey = (key) => {
-    const event = new CustomEvent('keyTouched', { detail: { key } });
-    document.dispatchEvent(event);
-  }
-
   return {
-    changeScale: (note) => {
-      console.log(note);
+    changeScale: (scoreType) => {
+      if (scoreType == 'eng') witeScaleName(keysEng);
+      if (scoreType == 'ita') witeScaleName(keysIta);
     }
   }
   
-
 });
 
 

@@ -48,8 +48,6 @@ body {
 }
 
 
-
-
 /* ボタン全体のスタイル */
 .button {
   display: inline-block; /* インラインブロックで配置 */
@@ -110,8 +108,9 @@ body {
 #opt-area {
   display: flex;
   position: block;
+  justify-content: center;
   /*flex-direction: row;  要素を横に配置*/
-  /* height: 100px; */
+  height: 100px;
   /* width: 500px; */
   /* border-style: dashed; */
   /* border-color: red; */
@@ -158,21 +157,26 @@ body {
 }
 
 .white-key {
-  width: 105px; /* 白鍵の幅 */
-  height: 370px; /* 白鍵の高さ */
+  width: 107px; /* 白鍵の幅 */
+  height: 390px; /* 白鍵の高さ */
   background: white;
   border: 1px solid #ccc;
   margin-right: 5px;
   position: relative;
   z-index: 1;
   cursor: pointer;
+  text-align: center;
+  line-height: 600px;
+  font-size: 34px;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif; /* 日本語フォント */
 }
 .white-key:active {
   background: rgb(146, 146, 146);
 }
 
 .black-key {
-  width: 55px; /* 黒鍵の幅 */
+  width: 60px; /* 黒鍵の幅 */
   height: 230px; /* 黒鍵の高さ */
   background: black;
   position: absolute;
@@ -185,10 +189,10 @@ body {
 
 /* 黒鍵の正しい位置 */
 .black-key:nth-child(2) { margin-left: 35px; } /* C# */
-.black-key:nth-child(4) { margin-left: 83px; } /* D# */
-.black-key:nth-child(7) { margin-left: 165px;  } /* F# */
-.black-key:nth-child(9) { margin-left: 212px;  } /* G# */
-.black-key:nth-child(11) { margin-left: 256px;  } /* A# */
+.black-key:nth-child(4) { margin-left: 85px; } /* D# */
+.black-key:nth-child(7) { margin-left: 168px;  } /* F# */
+.black-key:nth-child(9) { margin-left: 220px;  } /* G# */
+.black-key:nth-child(11) { margin-left: 265px;  } /* A# */
 
 .read-key {
   position: absolute;
@@ -201,8 +205,8 @@ body {
 
 .read-key:nth-child(18) { margin-left: 50px; } /* F */
 .read-key:nth-child(20) { margin-left: 42px; } /* G */
-.read-key:nth-child(22) { margin-left: 39px; } /* A */
-.read-key:nth-child(24) { margin-left: 40px; } /* B */
+.read-key:nth-child(22) { margin-left: 45px; } /* A */
+.read-key:nth-child(24) { margin-left: 47px; } /* B */
 
 
 /*-------------------- 楽譜 ----------------------*/
@@ -233,11 +237,14 @@ g.vf-notehead path {
 
 
 .cnf-tgl {
+  display: flex;
+  justify-content: center;
   position: relative;
-  height: 35px;
-  width: 200px;
+  height: 70px;
+  width: 400px;   /* 200 */
   margin-top: 20px;
-  font-size: 20px;    /*サイズに指定にトグルサイズ追従*/
+  margin-bottom: 20p;
+  font-size: 32px;    /*サイズに指定にトグルサイズ追従*/
 }
 
 .cnf-tgl > input {
@@ -249,8 +256,10 @@ g.vf-notehead path {
   position: relative;
   width: 2.8em;
   height: 1.5em;
+  margin: 0px 10px 0px 10px;
   border-radius: 1.5em;
-  background-color: #dadada;
+  /* background-color: #dadada; */
+  background-color: #007bff;
   cursor: pointer;
 }
 
@@ -276,13 +285,15 @@ g.vf-notehead path {
 
 .cnf-tgl > span {
   position: relative;
-  top: -28px;
-  left: 70px;
+  /* top: -28px; */
+  /* left: 70px; */
+  /* width: 70px; */
   color: #aaaaaa;
 }
 
 .cnf-tgl > input:checked + label + span {
-  color: #180474;
-  font-weight: bold;
+  /* color: #180474; */
+  /* color: white; */
+  font-weight: normal;
 }
 
