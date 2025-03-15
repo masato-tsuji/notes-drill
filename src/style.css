@@ -22,6 +22,8 @@ body {
   margin-top: 80px;
 }
 
+
+
 .container {
   display: flex;
   flex-direction: column;  /*要素を縦に配置*/
@@ -102,7 +104,9 @@ body {
 100% {opacity: 1;}
 }
 
-
+.soon {
+  background-color: rgb(192, 192, 192);
+}
 
 /*--------------------- ドリルエリア ---------------------*/
 #drill-area {
