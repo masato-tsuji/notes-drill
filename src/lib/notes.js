@@ -1,66 +1,40 @@
 'use strict'
 // 音符の情報をfirebaseから取得し出題するスクリプト
 
-
 const objScore = ((targetDiv) => {
   let currentNote = "";
+  let currentDisp = "";
+
   const objInitialize = () => {
 
     /* 設定値取得 */
-    const cnfDrillCount = 10;  // ドリルの出題数
-    const cnfClef = 'G';      // 音部記号（ト音treble G 、へ音bass F）
+    const cnfDrillCount = 10;   // ドリルの出題数
+    const cnfClef = 'treble';   // 音部記号（ト音treble G 、へ音bass F）
     const cnfDispScale = true;  // 音階表示
     const cnfWakeMode = true;   // 苦手優先
 
-    // オプションのイベント設定 firebaseへ保存
-    document.querySelectorAll(".cnf-tgl > input").forEach( elm => {
-      elm.addEventListener("change", (e) => {
-          
-          // 出題数
-          if (elm.id === "drill-count") {
-              
-          }
-      
-          // 音部記号
-          if (elm.id === "clef-mode") {
-              
-          }
-          
-          // 音階表示
-          if (elm.id === "disp-scale") {
-              
-          }
-
-          // 苦手優先
-          if (elm.id === "wake-mode") {
-              
-          }
-          
-      });
-    });
-
     // オプションエリア描画
-    function createTgl(id, label) {
+    function createTgl(id, labelL, labelR) {
       const elm =  document.createElement('div');
       elm.className = 'cnf-tgl';
       elm.innerHTML =  `
+          <span class="cnf_label">${labelL}</span>
           <input type="checkbox" id="${id}">
           <label for="${id}"></label>
-          <span class="cnf_label">${label}</span>
+          <span class="cnf_label">${labelR}</span>
       `;
+      // elm.innerHTML =  `
+      //     <input type="checkbox" id="${id}">
+      //     <label for="${id}"></label>
+      //     <span class="cnf_label">${label}</span>
+      // `;
       return elm;
     }
     const elmOptArea = document.getElementById('opt-area');
-    elmOptArea.appendChild(createTgl('id1', 'test1'));
-    elmOptArea.appendChild(createTgl('id2', 'test2'));
-
-    // ステータス表示エリア描画
+    elmOptArea.appendChild(createTgl('opt-cref', 'ト音記号', 'ヘ音記号'));
+    elmOptArea.appendChild(createTgl('opt-scale', '英語', 'ドレミ'));
 
   }
-
-  // オプション状態取得
-
-
   // firebaseから誤答履歴取得
 
 
@@ -71,10 +45,16 @@ const objScore = ((targetDiv) => {
   const { Renderer, Stave, StaveNote, Accidental } = Vex.Flow;
   // 対象のdivを取得
   const divSvg = document.getElementById(targetDiv);
+  let clefMode = "treble";  // bass/treble
 
- 
   function drawSvgNote(argNote) {
-    
+
+    const optCref = document.getElementById('opt-cref');
+    if (optCref.checked) {
+      clefMode = "bass";
+    } else {
+      clefMode = "treble";
+    }
     // 既存のSVGをクリア
     divSvg.innerHTML = "";
 
@@ -87,16 +67,17 @@ const objScore = ((targetDiv) => {
 
     // 五線譜を描画
     // const staveSvg = new Stave(10, 40, 200);
-    const staveSvg = new Stave(60, 5, 110); // キャンバスの中の位置(Left, top, long)
-    const clef = "bass";
-    staveSvg.addClef(clef);
+    const staveSvg = new Stave(50, 5, 130); // キャンバスの中の位置(Left, top, long)
+
+    staveSvg.addClef(clefMode);
     // staveSvg.addClef("treble");
     staveSvg.setContext(contextSvg).draw();
 
     // 新しい音符を作成
     // const noteChoice = rndChoice(notesBass);
     const note = argNote.substr(-3);
-    const noteSvg = new StaveNote({ clef: clef, keys: [note], duration: "w" });
+    const noteSvg =  new StaveNote({ clef: clefMode, keys: [note], duration: "w" });
+
     // const noteSvg = new StaveNote({ clef: "bass", keys: ["e/4"], duration: "w" });
 
     // シャープ追加（必要なら）
@@ -121,7 +102,7 @@ const objScore = ((targetDiv) => {
       currentNote = note;
     },
     getValue: () => currentNote
-  };
+  }
 
 
 
