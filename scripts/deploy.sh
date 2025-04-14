@@ -1,4 +1,6 @@
 #!/bin/bash
+# gh-pagesブランチでpushするこどでgithub側のactionにより
+# webページをデプロイする
 
 # mainブランチに切り替え
 git checkout main

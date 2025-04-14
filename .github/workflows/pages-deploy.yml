@@ -1,3 +1,5 @@
+# githubにgh-pagesブランチにpushがあった場合
+# jobsの処理を行う ⇒ webページのデプロイ
 name: Copy to Public
 
 on:

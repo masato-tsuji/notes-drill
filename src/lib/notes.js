@@ -23,11 +23,6 @@ const objScore = ((targetDiv) => {
           <label for="${id}"></label>
           <span class="cnf_label">${labelR}</span>
       `;
-      // elm.innerHTML =  `
-      //     <input type="checkbox" id="${id}">
-      //     <label for="${id}"></label>
-      //     <span class="cnf_label">${label}</span>
-      // `;
       return elm;
     }
     const elmOptArea = document.getElementById('opt-area');
@@ -103,9 +98,6 @@ const objScore = ((targetDiv) => {
     },
     getValue: () => currentNote
   }
-
-
-
 
 });
 

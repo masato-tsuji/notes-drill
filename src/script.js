@@ -188,16 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 出題
     // score.drawNote(questionNote(notes));
 
-
   });
   
-  
-  
-  
 });
-
-
-
 
 
 
