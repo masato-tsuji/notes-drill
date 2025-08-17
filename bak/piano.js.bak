@@ -78,9 +78,6 @@ const objPiano = ((targetDiv) => {
     }
   }
   
-
-  
 });
 
-export { objPiano };
 
