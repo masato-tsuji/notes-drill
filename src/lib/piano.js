@@ -44,13 +44,22 @@ const objPiano = ((targetDiv) => {
             keyElement.className = 'white-key';
         }
         // イベント登録
-        if (isTouchDevice()) {
-          // タッチパネルのみに反応
+        // if (isTouchDevice()) {
+        //   // タッチパネルのみに反応
+        //   keyElement.addEventListener('touchstart', () => touchKey(key, disp));
+        //   // keyElement.addEventListener('mousedown', () => touchKey(key));
+        // } else {
+        //   keyElement.addEventListener('mousedown', () => touchKey(key, disp));
+        // }
+
+        // デバイスによってイベント分ける
+        const ua = navigator.userAgent;
+        if (/iPhone|iPad|iPod|Android/i.test(ua)) {
           keyElement.addEventListener('touchstart', () => touchKey(key, disp));
-          // keyElement.addEventListener('mousedown', () => touchKey(key));
         } else {
           keyElement.addEventListener('mousedown', () => touchKey(key, disp));
         }
+        
 
         pianoElement.appendChild(keyElement);
         // pianoElement.appendChild(readElement);

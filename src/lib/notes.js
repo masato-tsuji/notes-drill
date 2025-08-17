@@ -8,12 +8,12 @@ const objScore = ((targetDiv) => {
   const objInitialize = () => {
 
     /* 設定値取得 */
-    const cnfDrillCount = 10;   // ドリルの出題数
+    const cnfDrillCount = 3;   // ドリルの出題数 10 
     const cnfClef = 'treble';   // 音部記号（ト音treble G 、へ音bass F）
     const cnfDispScale = true;  // 音階表示
     const cnfWakeMode = true;   // 苦手優先
 
-    // オプションエリア描画
+    // オプションエリア描画 ト音 or ヘ音　英語 or ドレミ
     function createTgl(id, labelL, labelR) {
       const elm =  document.createElement('div');
       elm.className = 'cnf-tgl';

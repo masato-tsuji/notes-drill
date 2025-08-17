@@ -132,11 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
     score.drawNote(choiceNote);
     resArea.innerHTML = "";
   });
-  
+
   // ピアノ打鍵イベント
   document.addEventListener('keyTouched', (event) => {
     // console.log(`Key ${event.detail.key} touched`);
-
     // 正解の値
     const correctValue = score.getValue().split('/')[0];
 
@@ -187,7 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 出題
     // score.drawNote(questionNote(notes));
-
   });
   
 });
