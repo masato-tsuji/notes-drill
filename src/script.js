@@ -44,6 +44,8 @@ const typing = (element) => {
   return execInterval;
 };
 
+console.log('ok');
+
 // -------------------
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -55,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const resArea = document.getElementById("res-area");
 
   // タイトル表示（タイピング演出）
+  console.log("setiTimeout before");
   setTimeout(() => {
     const t = typing(divTitle);
     t("Notes Drill for mina", 87);
