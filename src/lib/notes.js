@@ -1,7 +1,7 @@
 'use strict'
 // 音符の情報をfirebaseから取得し出題するスクリプト
 
-function objScore(targetDiv) {
+const objScore = ((targetDiv) => {
   let currentNote = "";
   let currentDisp = "";
 
@@ -71,6 +71,6 @@ function objScore(targetDiv) {
     },
     getValue: () => currentNote
   };
-}
+});
 
 export { objScore };

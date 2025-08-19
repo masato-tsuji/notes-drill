@@ -16,6 +16,7 @@ const objPiano = ((targetDiv) => {
     });
   }
 
+
   // 鍵盤押下のイベント定義
   const touchKey = (key, disp) => {
     const event = new CustomEvent('keyTouched', { detail: { key, disp } });
@@ -30,6 +31,8 @@ const objPiano = ((targetDiv) => {
     const isTouchDevice = () => {
       return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     }
+
+    const ua = navigator.userAgent;
 
     // 鍵盤作成
     keys.forEach((key, index) => {
@@ -52,12 +55,16 @@ const objPiano = ((targetDiv) => {
         //   keyElement.addEventListener('mousedown', () => touchKey(key, disp));
         // }
 
+        
         // デバイスによってイベント分ける
-        const ua = navigator.userAgent;
         if (/iPhone|iPad|iPod|Android/i.test(ua)) {
           keyElement.addEventListener('touchstart', () => touchKey(key, disp));
+          //★
+          console.log('touch');
         } else {
           keyElement.addEventListener('mousedown', () => touchKey(key, disp));
+          //★
+          console.log('mouse');
         }
         
 
@@ -75,6 +82,7 @@ const objPiano = ((targetDiv) => {
     changeScale: (scoreType) => {
       if (scoreType == 'eng') witeScaleName(keysEng);
       if (scoreType == 'ita') witeScaleName(keysIta);
+      console.log('changeScale');
     }
   }
   

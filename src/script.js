@@ -44,7 +44,6 @@ const typing = (element) => {
   return execInterval;
 };
 
-console.log('ok');
 
 // -------------------
 document.addEventListener('DOMContentLoaded', () => {
@@ -57,11 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const resArea = document.getElementById("res-area");
 
   // タイトル表示（タイピング演出）
-  console.log("setiTimeout before");
   setTimeout(() => {
     const t = typing(divTitle);
     t("Notes Drill for mina", 87);
-  }, 2100);
+  }, 2000);
 
   const piano = objPiano("piano");
   const score = objScore("score-area");
@@ -70,6 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // -------------------
   // Startボタン：従来の1問トレーニング
   btnStart.addEventListener("click", () => {
+    //★
+    console.log('start3');
     divMenu.style.display = "none";
     divDrill.style.display = "flex";
     score.drawNote(rndChoice(notes));
