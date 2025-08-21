@@ -16,7 +16,6 @@ const objPiano = ((targetDiv) => {
     });
   }
 
-
   // 鍵盤押下のイベント定義
   const touchKey = (key, disp) => {
     const event = new CustomEvent('keyTouched', { detail: { key, disp } });
@@ -46,6 +45,7 @@ const objPiano = ((targetDiv) => {
         } else {
             keyElement.className = 'white-key';
         }
+
         // イベント登録
         // if (isTouchDevice()) {
         //   // タッチパネルのみに反応
@@ -54,20 +54,14 @@ const objPiano = ((targetDiv) => {
         // } else {
         //   keyElement.addEventListener('mousedown', () => touchKey(key, disp));
         // }
-
         
         // デバイスによってイベント分ける
         if (/iPhone|iPad|iPod|Android/i.test(ua)) {
           keyElement.addEventListener('touchstart', () => touchKey(key, disp));
-          //★
-          console.log('touch');
         } else {
           keyElement.addEventListener('mousedown', () => touchKey(key, disp));
-          //★
-          console.log('mouse');
         }
         
-
         pianoElement.appendChild(keyElement);
         // pianoElement.appendChild(readElement);
     });

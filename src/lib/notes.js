@@ -48,17 +48,20 @@ const objScore = ((targetDiv) => {
     staveSvg.addClef(clefMode);
     staveSvg.setContext(contextSvg).draw();
 
-    const note = argNote.substr(-3);
-    const noteSvg = new StaveNote({ clef: clefMode, keys: [note], duration: "w" });
+    if (argNote) {
+      const note = argNote.substr(-3);
+      const noteSvg = new StaveNote({ clef: clefMode, keys: [note], duration: "w" });
+  
+      if (argNote.includes("#")) {
+        noteSvg.addAccidental(0, new Accidental("#"));
+      }
+      if (argNote.includes("_")) {
+        noteSvg.addAccidental(0, new Accidental("b"));
+      }
+      Vex.Flow.Formatter.FormatAndDraw(contextSvg, staveSvg, [noteSvg]);
 
-    if (argNote.includes("#")) {
-      noteSvg.addAccidental(0, new Accidental("#"));
-    }
-    if (argNote.includes("_")) {
-      noteSvg.addAccidental(0, new Accidental("b"));
     }
 
-    Vex.Flow.Formatter.FormatAndDraw(contextSvg, staveSvg, [noteSvg]);
   }
 
   objInitialize();

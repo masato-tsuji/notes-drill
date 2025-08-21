@@ -155,11 +155,17 @@ body {
 
 #res-area {
   height: 120px;
-  /* border-style: dashed; */
+  border-style: dashed;
   /* border-color: red; */
   font-size: 50px;
 }
 
+#count-area {
+  height: 20px;
+  /* border-style: dashed; */
+  /* border-color: red; */
+  font-size: 20px;
+}
 
 /*--------------------- piano ---------------------*/
 
