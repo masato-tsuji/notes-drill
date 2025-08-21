@@ -125,6 +125,10 @@ body {
   padding-top: 50px;
 }
 
+#btn-top {
+  font-size: 40px;
+}
+
 #opt-area {
   display: flex;
   position: block;
@@ -155,7 +159,7 @@ body {
 
 #res-area {
   height: 120px;
-  border-style: dashed;
+  /* border-style: dashed; */
   /* border-color: red; */
   font-size: 50px;
 }

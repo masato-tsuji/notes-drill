@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const divDrill = document.querySelector("#drill-area");
   const btnStart = document.querySelector("#btn-start");
   const btnGame = document.querySelector("#btn-game");
+  const btnTop = document.getElementById("btn-top");
   const btnQues = document.getElementById("btn-question");
   const resArea = document.getElementById("res-area");
   const cntArea = document.getElementById("count-area");
@@ -79,6 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const piano = objPiano("piano");
   const score = objScore("score-area");
   let notes = notesTreble;
+
+  // topに戻るボタン
+  btnTop.addEventListener("click", () => {
+    divMenu.style.display = "flex";
+    divDrill.style.display = "none";
+  });
 
   // 出題と判定関数
   const ask_question = async  () => {
