@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     divMenu.style.display = "none";
     divDrill.style.display = "flex";
 
-    const totalQuestions = 3;
+    const totalQuestions = 10;
     let correctCount = 0;
     const startTime = Date.now();
 
