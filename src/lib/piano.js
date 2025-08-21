@@ -76,7 +76,6 @@ const objPiano = ((targetDiv) => {
     changeScale: (scoreType) => {
       if (scoreType == 'eng') witeScaleName(keysEng);
       if (scoreType == 'ita') witeScaleName(keysIta);
-      console.log('changeScale');
     }
   }
   

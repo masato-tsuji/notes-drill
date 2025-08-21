@@ -99,7 +99,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let correctDispValue = '';
     correctDispValue = correctValue.replace("_", "♭");
     correctDispValue = correctDispValue.replace("#", "＃");
-    correctDispValue = correctDispValue.toUpperCase();
+
+    const scaleComp = [
+      {c: "ド", d: "レ", e: "ミ", f: "ファ", g: "ソ", a: "ラ", b: "シ"}
+    ];
+
+    const optScale = document.getElementById('opt-scale');
+    if (optScale.checked) {
+      const solf = scaleComp[0][correctDispValue.slice(-1)]; //イタリア式の値を取得
+      correctDispValue = correctDispValue.replace(correctDispValue.slice(-1), solf);
+    } else {
+      correctDispValue = correctDispValue.toUpperCase();
+    }
 
     // 判定
     // if (answer.includes(correctValue)) {
@@ -127,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // trainingボタン：従来の1問トレーニング
   btnStart.addEventListener("click", () => {
+    initDrill();
     divMenu.style.display = "none";
     divDrill.style.display = "flex";
     // score.drawNote(rndChoice(notes));
@@ -179,6 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
     divMenu.style.display = "none";
     divDrill.style.display = "flex";
 
+    initDrill();
+
     const totalQuestions = 10;
     let correctCount = 0;
     const startTime = Date.now();
@@ -189,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cntArea.style.fontSize = '20pt'
     cntArea.style.color = "white";
     cntArea.innerText = "鍵盤を押すとスタートします...";
-    score.drawNote(false);
+    // score.drawNote(false);
 
     await waitKeyPress();   // ← ここで最初のキー入力を待つ
     cntArea.innerText = "";
@@ -224,21 +238,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalScore = accuracy / clearTime;
 
     cntArea.style.color = "rgb(252, 215, 10)";
-    cntArea.innerText = `タイム: ${clearTime}　正解率: ${accuracy}%`;
+    cntArea.innerText = `タイム: ${clearTime}　正解率: ${accuracy}%　総合得点: ${totalScore.toFixed(2)}`;
 
     // 名前入力
-    let name = localStorage.getItem('playerName');
-    // if (!name) {
-    //   name = prompt("クリアしました！ 名前を入力してください");
-    //   localStorage.setItem('playerName', name);
+    // let name = localStorage.getItem('playerName');
+    // name = prompt("クリアしました！ 名前を入力してください", name ?? '');
+    // if (name === null || name.trim() === "") {
+    //   name = "わるめのねこ";
     // }
+    // localStorage.setItem('playerName', name);
 
-    name = prompt("クリアしました！ 名前を入力してください", name ?? '');
-    if (name === null || name.trim() === "") {
-      name = "わるめのねこ";
-    }
-
-    await saveScore(name, clearTime, accuracy, totalScore);
+    //await saveScore(name, clearTime, accuracy, totalScore);
 
     // ランキング表示
     //await showRanking('ranking-area', 10);
@@ -246,6 +256,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // -------------------
   // ヘルパー関数
+  function initDrill() {
+    score.drawNote(false);
+    cntArea.innerText = "";
+    resArea.innerHTML = "";
+  }
+
   function rndChoice(array) {
     return array[Math.floor(Math.random() * array.length)];
   }
