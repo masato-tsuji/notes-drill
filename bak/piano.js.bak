@@ -31,8 +31,6 @@ const objPiano = ((targetDiv) => {
       return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     }
 
-    const ua = navigator.userAgent;
-
     // 鍵盤作成
     keys.forEach((key, index) => {
       const isBlackKey = key.includes('#');
@@ -45,7 +43,6 @@ const objPiano = ((targetDiv) => {
         } else {
             keyElement.className = 'white-key';
         }
-
         // イベント登録
         // if (isTouchDevice()) {
         //   // タッチパネルのみに反応
@@ -54,14 +51,16 @@ const objPiano = ((targetDiv) => {
         // } else {
         //   keyElement.addEventListener('mousedown', () => touchKey(key, disp));
         // }
-        
+
         // デバイスによってイベント分ける
+        const ua = navigator.userAgent;
         if (/iPhone|iPad|iPod|Android/i.test(ua)) {
           keyElement.addEventListener('touchstart', () => touchKey(key, disp));
         } else {
           keyElement.addEventListener('mousedown', () => touchKey(key, disp));
         }
         
+
         pianoElement.appendChild(keyElement);
         // pianoElement.appendChild(readElement);
     });
@@ -76,13 +75,9 @@ const objPiano = ((targetDiv) => {
     changeScale: (scoreType) => {
       if (scoreType == 'eng') witeScaleName(keysEng);
       if (scoreType == 'ita') witeScaleName(keysIta);
-      console.log('changeScale');
     }
   }
   
-
-  
 });
 
-export { objPiano };
 

@@ -9,15 +9,16 @@
     <title>Notes Drill for mina</title>
     <link rel="stylesheet" href="style.css?v=1.0.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vexflow/3.0.9/vexflow-min.js"></script>
-    <script type="module" src="./lib/notes.js"></script>
-    <script type="module" src="./lib/piano.js"></script>
-    <script type="module" src="script.js"></script>
+    <script type="text/javascript" src="./lib/notes.js"></script>
+    <script type="text/javascript" src="./lib/piano.js"></script>
+    <script type="text/javascript" src="./lib/main.js"></script>
+    <script type="text/javascript" src="script.js"></script>
 
   </head>
   <body>
     <div class="container" id="main-menu">
       <div class="typing-display" id="title"></div>
-      <button class="button" id="btn-start">Training</button>
+      <button class="button" id="btn-start">Start</button>
       <button class="button" id="btn-game">Game</button>
       <div id="ranking-area"></div>
       <button class="soon" id="btn-record">Record</button>
@@ -29,7 +30,6 @@
       <div id="opt-area"></div>
       <div id="score-area"></div>
       <div id="res-area">　</div>
-      <div id="count-area"></div>
       <button id="btn-question">出 題</button>
       <div class="container_row" id="piano-keys">
         <div id="piano">

@@ -1,5 +1,12 @@
 'use strict'
 
+import { saveScore, showRanking } from './lib/db.js';
+import { objScore } from './lib/notes.js';
+import { objPiano } from './lib/piano.js';
+
+import { db } from './lib/firebase.js';
+import { collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js';
+
 // 設定定義
 const notesTreble = [
   'a/3', 'b/3', 'c/4', 'd/4', 'e/4', 'f/4', 'g/4', 'a/4', 'b/4', 'c/5', 'd/5', 'e/5', 'f/5', 'g/5',
@@ -15,8 +22,8 @@ const notesBass = [
   '_d/4', '_e/4'
 ]
 
-// 音符の情報をfirebaseから取得
-
+// -------------------
+// タイピング表示関数（残す）
 /**
  * 引数で受け取った要素に受け取った文字をタイピング風に出力
  * @param {object} element - 文字列の出力先の要素
@@ -48,51 +55,90 @@ const typing = (element) => {
       index = 0;
   }
   return execInterval;
-}
+};
 
-// 配列の中からランダムに一つ要素を返す
-const rndChoice = array => {
-  return array[Math.floor(Math.random() * array.length)];
-}
 
+// -------------------
 document.addEventListener('DOMContentLoaded', () => {
 
-  const divTitle = document.querySelector("#title");  /* title */
-  const divMenu = document.querySelector("#main-menu");  /*  */
-  const devDrill = document.querySelector("#drill-area");  /*  */
-  const btnStart = document.querySelector("#btn-start");  /*  */
+  const divTitle = document.querySelector("#title");
+  const divMenu = document.querySelector("#main-menu");
+  const divDrill = document.querySelector("#drill-area");
+  const btnStart = document.querySelector("#btn-start");
+  const btnGame = document.querySelector("#btn-game");
+  const btnQues = document.getElementById("btn-question");
   const resArea = document.getElementById("res-area");
-  const btnQuestion = document.getElementById("btn-question");
-  
-  btnStart.addEventListener("click", (e) => {
-    divMenu.style.display = "none";
-    devDrill.style.display = "flex";
-  });
-  
-  // タイトル表示
+  const cntArea = document.getElementById("count-area");
+
+  // タイトル表示（タイピング演出）
   setTimeout(() => {
     const t = typing(divTitle);
-    t("Notes Drill for mina", 87);   // 数値大きくすると遅くなる
-  }, 2100); // タイピングを開始するまでの時間
-  
+    t("Notes Drill for mina", 87);
+  }, 2000);
 
   const piano = objPiano("piano");
   const score = objScore("score-area");
-  let notes = notesTreble;   //notesBass;
-  
-  // 記録表示
-  
-  // オプション変更
-  
-  // オプションのイベント設定 firebaseへ保存
+  let notes = notesTreble;
+
+  // 出題と判定関数
+  const ask_question = async  () => {
+    const note = rndChoice(notes);
+    score.drawNote(note);
+    resArea.innerHTML = "";
+    const answer = await waitKeyPress(); // キー入力待機
+    const correctValue = score.getValue().split('/')[0];
+
+    // 表示用に記号変換
+    let correctDispValue = '';
+    correctDispValue = correctValue.replace("_", "♭");
+    correctDispValue = correctDispValue.replace("#", "＃");
+    correctDispValue = correctDispValue.toUpperCase();
+
+    // 判定
+    // if (answer.includes(correctValue)) {
+    //   resArea.style.color = "green";
+    //   resArea.innerText = `正解！ ${correctValue}`;
+    // } else {
+    //   resArea.style.color = "red";
+    //   resArea.innerText = `惜しい ${correctValue}`;
+    // }
+
+    // 判定表示
+    let isCorrect = false;
+    if (answer.includes(correctValue)) {
+      isCorrect = true;
+      resArea.style.color = "rgb(23, 206, 23)";
+      resArea.innerHTML = `正解${rndChoice(["🎉", "🎊", "🎈", "👍", "😊", "🙆‍♂️"])} ${correctDispValue}`;
+    } else {
+      resArea.style.color = "rgb(229, 241, 60)";
+      resArea.innerHTML = `惜しい${rndChoice(["😱", "😣", "😵", "🙈", "👻", "😝"])} ${correctDispValue}`;
+    }
+
+    return isCorrect;
+
+  }
+
+  // trainingボタン：従来の1問トレーニング
+  btnStart.addEventListener("click", () => {
+    divMenu.style.display = "none";
+    divDrill.style.display = "flex";
+    // score.drawNote(rndChoice(notes));
+    ask_question();
+  });
+
+  //出題ボタン
+  btnQues.addEventListener("click", () => {
+    ask_question();
+  });
+
+  // トグルボタンイベント
   document.querySelectorAll(".cnf-tgl > input").forEach( elm => {
     elm.addEventListener("change", (e) => {
         const isChecked = elm.checked;
-        // 出題数
+        // 出題数（将来用）
         if (elm.id === "drill-count") {
             
         }
-    
         // 音部記号
         if (elm.id === "opt-cref") {
           if (isChecked) {
@@ -100,9 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             notes = notesTreble;
           }
-          score.drawNote(questionNote(notes));
+          score.drawNote(rndChoice(notes));
         }
-          
         // 音階表示
         if (elm.id === "opt-scale") {
           if (isChecked) {
@@ -111,93 +156,106 @@ document.addEventListener('DOMContentLoaded', () => {
             piano.changeScale('eng');
           }
         }
-
-        // 苦手優先
+        // 苦手優先（将来用）
         if (elm.id === "wake-mode") {
             
         }
       
     });
-  });  
-  
-  // 出題関数
-  const questionNote = (notes) => rndChoice(notes);
-  
-  // スタートボタンで初期化と出題
-  score.drawNote(questionNote(notes));
-
-  // 仮出題ボタン
-  btnQuestion.addEventListener("click", (e) => {
-    const choiceNote = questionNote(notes);
-    score.drawNote(choiceNote);
-    resArea.innerHTML = "";
   });
+
   
+
+  // -------------------
+  // Gameボタン：10問連続ゲーム
+  btnGame.addEventListener("click", async () => {
+    divMenu.style.display = "none";
+    divDrill.style.display = "flex";
+
+    const totalQuestions = 3;
+    let correctCount = 0;
+    const startTime = Date.now();
+
+    // ここで「スタートキーを押すまで待つ」
+    btnQues.hidden = true;
+    cntArea.style.height = '20pt'
+    cntArea.style.fontSize = '20pt'
+    cntArea.style.color = "white";
+    cntArea.innerText = "鍵盤を押すとスタートします...";
+    score.drawNote(false);
+
+    await waitKeyPress();   // ← ここで最初のキー入力を待つ
+    cntArea.innerText = "";
+
+    for (let i = 0; i < totalQuestions; i++) {
+      // const note = rndChoice(notes);
+      // score.drawNote(note);
+
+      cntArea.style.color = "rgb(255, 255, 255)";
+      cntArea.innerText = `${i+1}/${totalQuestions}`;
+  
+      // const answer = await waitKeyPress(); // キー入力待機
+      // const correctValue = score.getValue().split('/')[0];
+
+      // if (answer.includes(correctValue)) {
+      //   correctCount++;
+      //   resArea.style.color = "green";
+      //   resArea.innerText = `正解！ ${correctValue}`;
+      // } else {
+      //   resArea.style.color = "red";
+      //   resArea.innerText = `惜しい ${correctValue}`;
+      // }
+
+      await ask_question() && correctCount++;
+
+      await sleep(600);
+    }
+
+    const endTime = Date.now();
+    const clearTime = ((endTime - startTime)/1000).toFixed(1); // 秒
+    const accuracy = Math.round((correctCount/totalQuestions)*100);
+    const totalScore = accuracy / clearTime;
+
+    cntArea.style.color = "rgb(252, 215, 10)";
+    cntArea.innerText = `タイム:${clearTime}　正解率:${accuracy}%`;
+
+    // 名前入力
+    let name = localStorage.getItem('playerName');
+    // if (!name) {
+    //   name = prompt("クリアしました！ 名前を入力してください");
+    //   localStorage.setItem('playerName', name);
+    // }
+
+    name = prompt("クリアしました！ 名前を入力してください", name);
+    if (name === null || name.trim() === "") {
+      name = "わるめのねこ";
+    }
+
+    await saveScore(name, clearTime, accuracy, totalScore);
+
+    // ランキング表示
+    await showRanking('ranking-area', 10);
+  });
+
+  // -------------------
+  // ヘルパー関数
+  function rndChoice(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   // ピアノ打鍵イベント
-  document.addEventListener('keyTouched', (event) => {
-    // console.log(`Key ${event.detail.key} touched`);
-
-    // 正解の値
-    const correctValue = score.getValue().split('/')[0];
-
-    // 表示用
-    const optScale = document.getElementById('opt-scale');
-    //　英語式とイタリア式の互換表
-    const scaleComp = [
-      {c: "ド", d: "レ", e: "ミ", f: "ファ", g: "ソ", a: "ラ", b: "シ"}
-    ];
-    // console.log(scaleComp[0]['d']);
-    let tmpCorrectVal = correctValue;
-
-    if (optScale.checked) {
-      const solf = scaleComp[0][tmpCorrectVal.slice(-1)]; //イタリア式の値を取得
-      tmpCorrectVal = tmpCorrectVal.replace(tmpCorrectVal.slice(-1), solf);
-    } else {
-      tmpCorrectVal = tmpCorrectVal.toUpperCase();
-    }
-    tmpCorrectVal = tmpCorrectVal.replace("_", "♭");
-    tmpCorrectVal = tmpCorrectVal.replace("#", "＃");
-    const correctDispValue = tmpCorrectVal;
-
-    // 判定 押した黒鍵のコードは#とbの２つをcsvで受け取る
-    const keys = event.detail.key.split(',');
-    let flgCorrect = false;
-    keys.forEach( key => {
-      if (key.includes(correctValue)) {
-        // console.log(`touch: ${key} - correct: ${correctValue}`);
-        flgCorrect = true;
-      }
+  function waitKeyPress() {
+    return new Promise(resolve => {
+      const listener = (event) => {
+        document.removeEventListener('keyTouched', listener);
+        resolve(event.detail.key.split(','));
+      };
+      document.addEventListener('keyTouched', listener);
     });
+  }
 
-    // 結果をfirebaseに登録
-
-    // 表示 成否と正解答
-    // resArea.innerHTML = `${score.getValue()} : ${event.detail.key}`;
-    if (flgCorrect) {
-      resArea.style.color = "rgb(23, 206, 23)";
-      resArea.innerHTML = `正解${rndChoice(["🎉", "🎊", "🎈", "👍", "😊", "🙆‍♂️"])} ${correctDispValue}`;
-      
-    } else {
-      resArea.style.color = "rgb(229, 241, 60)";
-      resArea.innerHTML = `惜しい${rndChoice(["😱", "😣", "😵", "🙈", "👻", "😝"])} ${correctDispValue}`;
-
-    }
-
-    // 継続判定
-
-    // 出題
-    // score.drawNote(questionNote(notes));
-
-  });
-  
 });
-
-
-
-// ページロード完了
-window.onload = function() {
-
-};
-
-
-
