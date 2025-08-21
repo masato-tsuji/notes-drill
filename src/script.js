@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalScore = accuracy / clearTime;
 
     cntArea.style.color = "rgb(252, 215, 10)";
-    cntArea.innerText = `タイム:${clearTime}　正解率:${accuracy}%`;
+    cntArea.innerText = `タイム: ${clearTime}　正解率: ${accuracy}%`;
 
     // 名前入力
     let name = localStorage.getItem('playerName');
@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //   localStorage.setItem('playerName', name);
     // }
 
-    name = prompt("クリアしました！ 名前を入力してください", name);
+    name = prompt("クリアしました！ 名前を入力してください", name ?? '');
     if (name === null || name.trim() === "") {
       name = "わるめのねこ";
     }
@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
     await saveScore(name, clearTime, accuracy, totalScore);
 
     // ランキング表示
-    await showRanking('ranking-area', 10);
+    //await showRanking('ranking-area', 10);
   });
 
   // -------------------
