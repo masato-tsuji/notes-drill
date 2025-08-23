@@ -304,15 +304,21 @@ document.addEventListener('DOMContentLoaded', () => {
     cntArea.style.color = "rgb(252, 215, 10)";
     cntArea.innerText = `タイム: ${clearTime}　正解率: ${accuracy}%　総合得点: ${totalScore.toFixed(2)}`;
 
-    // 名前入力
-    // let name = localStorage.getItem('playerName');
-    // name = prompt("クリアしました！ 名前を入力してください", name ?? '');
-    // if (name === null || name.trim() === "") {
-    //   name = "わるめのねこ";
-    // }
-    // localStorage.setItem('playerName', name);
+    名前入力
+    let name = localStorage.getItem('playerName');
+    name = prompt("クリアしました！ 名前を入力してください", name ?? '');
+    if (name === null || name.trim() === "") {
+      name = "わるめのねこ";
+    }
+    localStorage.setItem('playerName', name);
 
-    //await saveScore(name, clearTime, accuracy, totalScore);
+    const userId = getOrCreateUserId();
+
+    const optScale = document.getElementById('opt-scale');
+    const scale = optScale.checked ? 'ita' : 'eng';
+
+    // スコア保存
+    await saveScore(userId, name, scale, clearTime, accuracy, totalScore);
 
     // ランキング表示
     //await showRanking('ranking-area', 10);
@@ -322,11 +328,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ヘルパー関数
   function initDrill() {
     score.drawNote(false);
-    // if (document.querySelector("opt-scale").getValue()) {
-    //   piano.changeScale('ita');
-    // } else {
-    //   piano.changeScale('eng');
-    // }
+    const optScale = document.getElementById('opt-scale');
+    const scale = optScale.checked ? 'ita' : 'eng';
+    piano.changeScale(scale);
     cntArea.innerText = "";
     resArea.innerHTML = "";
   }
@@ -348,6 +352,17 @@ document.addEventListener('DOMContentLoaded', () => {
       };
       document.addEventListener('keyTouched', listener);
     });
+  }
+
+  // user-idをlocalStorageで管理する関数
+  function getOrCreateUserId() {
+    const key = 'user-id';
+    let userId = localStorage.getItem(key);
+    if (!userId) {
+      userId = Math.random().toString(36).slice(-8);
+      localStorage.setItem(key, userId);
+    }
+    return userId;
   }
 
 });

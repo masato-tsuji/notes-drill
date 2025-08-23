@@ -6,15 +6,19 @@ import { collection, addDoc, serverTimestamp, query, orderBy, getDocs, limit }
 
 /**
  * スコアをFirestoreに保存
+ * @param {string} userId - ユーザーID
  * @param {string} name - プレイヤー名
+ * @param {string} scale - 音符表記スケール
  * @param {number} clearTime - クリア時間（秒）
  * @param {number} accuracy - 正解率（%）
  * @param {number} totalScore - 総合得点
  */
-export async function saveScore(name, clearTime, accuracy, totalScore) {
+export async function saveScore(userId, name, scale, clearTime, accuracy, totalScore) {
   try {
     await addDoc(collection(db, "NotesDrillRecord"), {
+      user_id: userId,
       name: name,
+      scale: scale,
       clear_time: clearTime,
       accuracy: accuracy,
       total_score: totalScore,
