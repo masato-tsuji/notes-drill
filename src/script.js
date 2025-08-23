@@ -22,6 +22,8 @@ const notesBass = [
   '_d/4', '_e/4'
 ]
 
+
+
 // -------------------
 // タイピング表示関数（残す）
 /**
@@ -135,9 +137,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let notes = notesTreble;
   OptionStorage.load();
   ModalManager.init("setting-modal");
+  let isGameRunning = false;
 
   // topに戻るボタン
   btnTop.addEventListener("click", () => {
+    isGameRunning = false;
     divMenu.style.display = "flex";
     divDrill.style.display = "none";
   });
@@ -186,9 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
       resArea.style.color = "rgb(229, 241, 60)";
       resArea.innerHTML = `惜しい${rndChoice(["😱", "😣", "😵", "🙈", "👻", "😝"])} ${correctDispValue}`;
     }
-
     return isCorrect;
-
   }
 
   // trainingボタン：従来の1問トレーニング
@@ -196,6 +198,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initDrill();
     divMenu.style.display = "none";
     divDrill.style.display = "flex";
+    btnQues.hidden = false;
+    cntArea.hidden = true;
     // score.drawNote(rndChoice(notes));
     ask_question();
   });
@@ -262,6 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // -------------------
   // Gameボタン：10問連続ゲーム
   btnGame.addEventListener("click", async () => {
+    isGameRunning = true;
     divMenu.style.display = "none";
     divDrill.style.display = "flex";
 
@@ -273,6 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ここで「どれか鍵盤を押すまで待つ」
     btnQues.hidden = true;
+    cntArea.hidden = false;
     cntArea.style.height = '20pt'
     cntArea.style.fontSize = '20pt'
     cntArea.style.color = "white";
@@ -281,11 +287,14 @@ document.addEventListener('DOMContentLoaded', () => {
     cntArea.innerText = "";
 
     for (let i = 0; i < totalQuestions; i++) {
+      if (!isGameRunning) break; // TOPボタンで中断
       cntArea.style.color = "rgb(255, 255, 255)";
       cntArea.innerText = `${i+1}/${totalQuestions}`;
       await ask_question() && correctCount++;
       await sleep(600);
     }
+
+    if (!isGameRunning) return; // 中断時は結果表示しない
 
     const endTime = Date.now();
     const clearTime = ((endTime - startTime)/1000).toFixed(1); // 秒
@@ -313,6 +322,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ヘルパー関数
   function initDrill() {
     score.drawNote(false);
+    // if (document.querySelector("opt-scale").getValue()) {
+    //   piano.changeScale('ita');
+    // } else {
+    //   piano.changeScale('eng');
+    // }
     cntArea.innerText = "";
     resArea.innerHTML = "";
   }

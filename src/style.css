@@ -203,6 +203,7 @@ body {
 
 #count-area {
   height: 20px;
+  margin-bottom: 10px;
   /* border-style: dashed; */
   /* border-color: red; */
   font-size: 20px;
