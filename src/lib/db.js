@@ -90,3 +90,30 @@ export async function showRanking(divId = 'ranking-area', topN = 10) {
   html += "</table>";
   rankingArea.innerHTML = html;
 }
+
+/* =========================================================
+   🔧 Firestore 接続テスト関数（必要なときだけ使う）
+   ========================================================= */
+export async function testFirestore() {
+  try {
+    console.log("== Firestore 接続テスト開始 ==");
+
+    // 書き込みテスト
+    const docRef = await addDoc(collection(db, "test"), {
+      message: "Hello Firestore!",
+      timestamp: new Date()
+    });
+    console.log("書き込み成功, doc ID:", docRef.id);
+
+    // 読み込みテスト
+    const snapshot = await getDocs(collection(db, "test"));
+    console.log("読み込み成功, 件数:", snapshot.size);
+    snapshot.forEach(doc => {
+      console.log("doc:", doc.id, doc.data());
+    });
+
+    console.log("== Firestore 接続テスト完了 ==");
+  } catch (e) {
+    console.error("Firestore テスト失敗:", e);
+  }
+}

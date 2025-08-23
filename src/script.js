@@ -6,6 +6,7 @@ import { objPiano } from './lib/piano.js';
 
 import { db } from './lib/firebase.js';
 import { collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js';
+import { testFirestore } from './lib/db.js';
 
 // 設定定義
 const notesTreble = [
@@ -364,5 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     return userId;
   }
+
+  // ✅ テストしたいときだけコメント解除
+  testFirestore();
 
 });
