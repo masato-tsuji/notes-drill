@@ -22,8 +22,44 @@ body {
   margin-top: 80px;
 }
 
+/* モーダル ポップアップ*/
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
 
+.modal-content {
+  background: rgba(255,255,255,0.95); /* 少し透明感を追加 */
+  padding: 2.5em 3em;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.12);
+  min-width: 340px;
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+  margin-top: 3%;
+  /* height: auto; */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: modal-float 0.3s ease;
+  backdrop-filter: blur(2px); /* 背景ぼかし効果（対応ブラウザのみ） */
+}
 
+@keyframes modal-float {
+  from { transform: translateY(40px) scale(0.96); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/*--------------------- メインエリア ---------------------*/
 .container {
   display: flex;
   flex-direction: column;  /*要素を縦に配置*/
@@ -119,6 +155,23 @@ body {
 
 }
 
+
+/*--------------------- メニューエリア ---------------------*/
+#ranking-area {
+  display: none;
+  padding-top: 50px;
+  color: black;
+  background-color: white;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+
+
 /*--------------------- ドリルエリア ---------------------*/
 #drill-area {
   display: none;
@@ -158,7 +211,8 @@ body {
 }
 
 #res-area {
-  height: 120px;
+  /* height: 120px; */
+  min-height: 80px;
   /* border-style: dashed; */
   /* border-color: red; */
   font-size: 50px;
@@ -166,6 +220,7 @@ body {
 
 #count-area {
   height: 20px;
+  margin-bottom: 10px;
   /* border-style: dashed; */
   /* border-color: red; */
   font-size: 20px;

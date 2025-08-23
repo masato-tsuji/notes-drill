@@ -38,9 +38,34 @@
         </div>
       </div>
     </div>
-
-
-
     
+    <!-- 設定モーダル -->
+    <div id="setting-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>設定</h2>
+        <label>
+          <input type="checkbox" id="modal-opt-cref">
+          バス記号で出題
+        </label>
+        <label>
+          <input type="checkbox" id="modal-opt-scale">
+          音階をイタリア式で表示
+        </label>
+        <button id="modal-save">保存</button>
+        <button id="modal-cancel">キャンセル</button>
+      </div>
+    </div>
+
+    <!-- ランキングモーダル -->
+    <div id="ranking-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>ランキング</h2>
+        <div id="ranking-list">
+          <!-- ランキングがここに表示される -->
+        </div>
+        <button id="modal-close">閉じる</button>
+      </div>
+    </div>
+
   </body>
 </html>

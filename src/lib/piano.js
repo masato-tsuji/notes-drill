@@ -1,6 +1,5 @@
 'use strict'
 // ピアノを描画し鍵盤のタッチを処理するスクリプト
-
 const objPiano = ((targetDiv) => {
   const pianoElement = document.getElementById(targetDiv);
   const keysEng = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
@@ -8,8 +7,8 @@ const objPiano = ((targetDiv) => {
   const keysIta = ['ド', 'ド#', 'レ', 'レ#', 'ミ', 'ファ', 'ファ#', 'ソ', 'ソ#', 'ラ', 'ラ#', 'シ'];
   const keysVal = ['c', '#c,_d', 'd', '#d,_e', 'e', 'f', '#f,_g', 'g', '#g,_a', 'a', '#a,_B', 'b']
   
-  // 鍵盤に音階表示
-  const witeScaleName = (dispKeys) => {
+  // 鍵盤に音階書き出し
+  const writeScaleName = (dispKeys) => {
     const filteredKeys = dispKeys.filter(key => !key.includes('#'));
     document.querySelectorAll(".white-key").forEach((elm, index) => {
       elm.innerText = filteredKeys[index];
@@ -22,6 +21,7 @@ const objPiano = ((targetDiv) => {
     document.dispatchEvent(event);
   }
 
+  // 鍵盤作成
   function createPianoKeys() {
     const dispKeys = keysEng;
     const keys = keysVal;
@@ -31,6 +31,7 @@ const objPiano = ((targetDiv) => {
       return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     }
 
+    // ユーザーエージェント取得
     const ua = navigator.userAgent;
 
     // 鍵盤作成
@@ -66,7 +67,7 @@ const objPiano = ((targetDiv) => {
         // pianoElement.appendChild(readElement);
     });
 
-    witeScaleName(dispKeys);
+    writeScaleName(dispKeys);
 
   }
   
@@ -74,8 +75,8 @@ const objPiano = ((targetDiv) => {
 
   return {
     changeScale: (scoreType) => {
-      if (scoreType == 'eng') witeScaleName(keysEng);
-      if (scoreType == 'ita') witeScaleName(keysIta);
+      if (scoreType == 'eng') writeScaleName(keysEng);
+      if (scoreType == 'ita') writeScaleName(keysIta);
     }
   }
   
