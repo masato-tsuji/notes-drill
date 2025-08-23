@@ -57,6 +57,56 @@ const typing = (element) => {
   return execInterval;
 };
 
+// モーダルオブジェクトテンプレート
+const ModalManager = {
+  modal: null,
+  content: null,
+  init(modalId) { 
+    this.modal = document.getElementById(modalId);
+    this.content = this.modal.querySelector('.modal-content');
+  },
+  show(html, onSave, onCancel) {
+    this.content.innerHTML = html;
+    this.modal.style.display = "block";
+    // 保存・キャンセルボタンのイベント
+    const saveBtn = this.content.querySelector('.modal-save');
+    const cancelBtn = this.content.querySelector('.modal-cancel');
+    if (saveBtn) saveBtn.onclick = () => { onSave && onSave(); this.hide(); };
+    if (cancelBtn) cancelBtn.onclick = () => { onCancel && onCancel(); this.hide(); };
+  },
+  hide() {
+    this.modal.style.display = "none";
+  }
+};
+
+// 設定管理オブジェクト
+const OptionStorage = {
+  keys: {
+    cref: "opt-cref",
+    scale: "opt-scale"
+  },
+  save() {
+    localStorage.setItem(this.keys.cref, document.getElementById("opt-cref").checked);
+    localStorage.setItem(this.keys.scale, document.getElementById("opt-scale").checked);
+  },
+  load() {
+    const cref = localStorage.getItem(this.keys.cref) === "true";
+    const scale = localStorage.getItem(this.keys.scale) === "true";
+    const optCref = document.getElementById("opt-cref");
+    const optScale = document.getElementById("opt-scale");
+    if (optCref) optCref.checked = cref;
+    if (optScale) optScale.checked = scale;
+  },
+  setFromModal() {
+    document.getElementById("opt-cref").checked = document.getElementById("modal-opt-cref").checked;
+    document.getElementById("opt-scale").checked = document.getElementById("modal-opt-scale").checked;
+    this.save();
+  },
+  setModalFromOption() {
+    document.getElementById("modal-opt-cref").checked = document.getElementById("opt-cref")?.checked ?? false;
+    document.getElementById("modal-opt-scale").checked = document.getElementById("opt-scale")?.checked ?? false;
+  }
+};
 
 // -------------------
 document.addEventListener('DOMContentLoaded', () => {
@@ -64,10 +114,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const divTitle = document.querySelector("#title");
   const divMenu = document.querySelector("#main-menu");
   const divDrill = document.querySelector("#drill-area");
+
   const btnStart = document.querySelector("#btn-start");
   const btnGame = document.querySelector("#btn-game");
   const btnTop = document.getElementById("btn-top");
   const btnQues = document.getElementById("btn-question");
+  const btnSetting = document.getElementById("btn-setting");
+
   const resArea = document.getElementById("res-area");
   const cntArea = document.getElementById("count-area");
 
@@ -80,6 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const piano = objPiano("piano");
   const score = objScore("score-area");
   let notes = notesTreble;
+  OptionStorage.load();
+  ModalManager.init("setting-modal");
 
   // topに戻るボタン
   btnTop.addEventListener("click", () => {
@@ -165,6 +220,9 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             notes = notesTreble;
           }
+          // localStorageに保存
+          OptionStorage.save(); 
+          // 表示中の音符を更新
           score.drawNote(rndChoice(notes));
         }
         // 音階表示
@@ -174,16 +232,32 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             piano.changeScale('eng');
           }
+          // localStorageに保存
+          OptionStorage.save(); 
         }
         // 苦手優先（将来用）
         if (elm.id === "wake-mode") {
             
         }
-      
     });
   });
 
-  
+  //　セッティングボタン
+  btnSetting.addEventListener("click", () => {
+    ModalManager.show(
+      `<h2>設定</h2>
+      <label><input type="checkbox" id="modal-opt-cref"> バス記号で出題</label>
+      <label><input type="checkbox" id="modal-opt-scale"> 音階をイタリア式で表示</label>
+      <button class="modal-save">保存</button>
+      <button class="modal-cancel">キャンセル</button>`,
+      () => {
+        document.getElementById("opt-cref").checked = document.getElementById("modal-opt-cref").checked;
+        document.getElementById("opt-scale").checked = document.getElementById("modal-opt-scale").checked;
+        OptionStorage.save();
+      }
+    );
+    OptionStorage.load();
+  });
 
   // -------------------
   // Gameボタン：10問連続ゲーム
@@ -197,38 +271,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let correctCount = 0;
     const startTime = Date.now();
 
-    // ここで「スタートキーを押すまで待つ」
+    // ここで「どれか鍵盤を押すまで待つ」
     btnQues.hidden = true;
     cntArea.style.height = '20pt'
     cntArea.style.fontSize = '20pt'
     cntArea.style.color = "white";
     cntArea.innerText = "鍵盤を押すとスタートします...";
-    // score.drawNote(false);
-
     await waitKeyPress();   // ← ここで最初のキー入力を待つ
     cntArea.innerText = "";
 
     for (let i = 0; i < totalQuestions; i++) {
-      // const note = rndChoice(notes);
-      // score.drawNote(note);
-
       cntArea.style.color = "rgb(255, 255, 255)";
       cntArea.innerText = `${i+1}/${totalQuestions}`;
-  
-      // const answer = await waitKeyPress(); // キー入力待機
-      // const correctValue = score.getValue().split('/')[0];
-
-      // if (answer.includes(correctValue)) {
-      //   correctCount++;
-      //   resArea.style.color = "green";
-      //   resArea.innerText = `正解！ ${correctValue}`;
-      // } else {
-      //   resArea.style.color = "red";
-      //   resArea.innerText = `惜しい ${correctValue}`;
-      // }
-
       await ask_question() && correctCount++;
-
       await sleep(600);
     }
 
