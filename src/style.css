@@ -194,7 +194,8 @@ body {
 }
 
 #res-area {
-  height: 120px;
+  /* height: 120px; */
+  min-height: 80px;
   /* border-style: dashed; */
   /* border-color: red; */
   font-size: 50px;
