@@ -4,6 +4,20 @@ import { db } from './firebase.js';
 import { collection, addDoc, serverTimestamp, query, orderBy, getDocs, limit } 
   from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
+
+export async function saveAcc(userAgent, scrnSize) {
+  try {
+    await addDoc(collection(db, "NotesDrillAcc"), {
+      userAgent: userAgent,
+      scrnSize: scrnSize,
+      timestamp: serverTimestamp()
+    });
+  } catch (e) {
+    console.error("error:", e);
+  }
+}
+
+
 /**
  * スコアをFirestoreに保存
  * @param {string} userId - ユーザーID
@@ -13,7 +27,7 @@ import { collection, addDoc, serverTimestamp, query, orderBy, getDocs, limit }
  * @param {number} accuracy - 正解率（%）
  * @param {number} totalScore - 総合得点
  */
-export async function saveScore(userId, name, scale, clearTime, accuracy, totalScore) {
+export async function saveScore(userId, name, scale, clearTime, accuracy, totalScore, totalQuestions) {
   try {
     await addDoc(collection(db, "NotesDrillRecord"), {
       user_id: userId,
@@ -22,9 +36,10 @@ export async function saveScore(userId, name, scale, clearTime, accuracy, totalS
       clear_time: clearTime,
       accuracy: accuracy,
       total_score: totalScore,
+      totalQuestions: totalQuestions,
       timestamp: serverTimestamp()
     });
-    console.log("スコアを保存しました:", name);
+    // console.log("スコアを保存しました:", name);
   } catch (e) {
     console.error("スコア保存エラー:", e);
   }
@@ -66,13 +81,13 @@ export async function showRanking(divId = 'ranking-area', topN = 10) {
   const rankingArea = document.getElementById(divId);
   if (!rankingArea) return;
 
-  let html = `<h2>ランキング</h2>
-    <table border="1" cellspacing="0" cellpadding="5">
+  let html = `Rankinng
+    <table border="1" cellspacing="0" cellpadding="2">
       <tr>
-        <th>順位</th>
-        <th>名前</th>
-        <th>クリア時間(秒)</th>
-        <th>正解率(%)</th>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>time</th>
+        <th>accur</th>
       </tr>
   `;
 
@@ -94,26 +109,26 @@ export async function showRanking(divId = 'ranking-area', topN = 10) {
 /* =========================================================
    🔧 Firestore 接続テスト関数（必要なときだけ使う）
    ========================================================= */
-export async function testFirestore() {
-  try {
-    console.log("== Firestore 接続テスト開始 ==");
+// async function testFirestore() {
+//   try {
+//     console.log("== Fir estore 接続テスト開始 ==");
 
-    // 書き込みテスト
-    const docRef = await addDoc(collection(db, "test"), {
-      message: "Hello Firestore!",
-      timestamp: new Date()
-    });
-    console.log("書き込み成功, doc ID:", docRef.id);
+//     // 書き込みテスト
+//     const docRef = await addDoc(collection(db, "test"), {
+//       message: "Hello Firestore!",
+//       timestamp: new Date()
+//     });
+//     console.log("書き込み成功, doc ID:", docRef.id);
 
-    // 読み込みテスト
-    const snapshot = await getDocs(collection(db, "test"));
-    console.log("読み込み成功, 件数:", snapshot.size);
-    snapshot.forEach(doc => {
-      console.log("doc:", doc.id, doc.data());
-    });
+//     // 読み込みテスト
+//     const snapshot = await getDocs(collection(db, "test"));
+//     console.log("読み込み成功, 件数:", snapshot.size);
+//     snapshot.forEach(doc => {
+//       console.log("doc:", doc.id, doc.data());
+//     });
 
-    console.log("== Firestore 接続テスト完了 ==");
-  } catch (e) {
-    console.error("Firestore テスト失敗:", e);
-  }
-}
+//     console.log("== Firestore 接続テスト完了 ==");
+//   } catch (e) {
+//     console.error("Firestore テスト失敗:", e);
+//   }
+// }

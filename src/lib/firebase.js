@@ -19,41 +19,49 @@ const firebaseConfig = {
 
 // Firebase 初期化
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 export const auth = getAuth(app);
+const db = getFirestore(app);
+
 
 //匿名ログインを開始
 signInAnonymously(auth)
   .then(() => {
-    console.log("匿名ログイン成功");
+    // console.log("匿名ログイン成功");
+    // testFirestore();
   })
   .catch((error) => {
-    console.error("匿名ログイン失敗:", error);
+    console.error("firebase anonymouseログイン失敗:", error);
   });
 
 
-// ---------------------------------------------------------------------------------------
-// 接続テスト関数
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { collection, addDoc, serverTimestamp, query, orderBy, getDocs, limit } 
+  from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-async function testFirebaseConnection() {
+async function testFirestore() {
   try {
-    const testRef = doc(db, "test", "testdoc");
-    const testSnap = await getDoc(testRef);
-    if (testSnap.exists()) {
-      console.log("Firebase接続成功: ", testSnap.data());
-    } else {
-      console.log("Firebase接続成功（ドキュメントなし）");
-    }
+    console.log("== Fir estore 接続テスト開始 ==");
+
+    // 書き込みテスト
+    // const docRef = await addDoc(collection(db, "NotesDrillRecord"), {
+    const docRef = await addDoc(collection(db, "testCollection"), {
+      message: "Hello Firestore!",
+      timestamp: new Date()
+    });
+    console.log("書き込み成功, doc ID:", docRef.id);
+
+    // 読み込みテスト
+    const snapshot = await getDocs(collection(db, "testCollection"));
+    console.log("読み込み成功, 件数:", snapshot.size);
+    snapshot.forEach(doc => {
+      console.log("doc:", doc.id, doc.data());
+    });
+
+    console.log("== Firestore 接続テスト完了 ==");
   } catch (e) {
-    console.error("Firebase接続失敗: ", e);
+    console.error("Firestore テスト失敗:", e);
   }
 }
-
-// ページロード時にテスト実行
-// testFirebaseConnection();
-// ---------------------------------------------------------------------------------------
 
 
 export { db };

@@ -1,12 +1,12 @@
 'use strict'
 
-import { saveScore, showRanking } from './lib/db.js';
+import { getRanking, saveAcc, saveScore, showRanking } from './lib/db.js';
 import { objScore } from './lib/notes.js';
 import { objPiano } from './lib/piano.js';
 
 import { db } from './lib/firebase.js';
 import { collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js';
-import { testFirestore } from './lib/db.js';
+
 
 // 設定定義
 const notesTreble = [
@@ -122,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnGame = document.querySelector("#btn-game");
   const btnTop = document.getElementById("btn-top");
   const btnQues = document.getElementById("btn-question");
+  const btnRecord = document.getElementById("btn-record");
   const btnSetting = document.getElementById("btn-setting");
 
   const resArea = document.getElementById("res-area");
@@ -139,6 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
   OptionStorage.load();
   ModalManager.init("setting-modal");
   let isGameRunning = false;
+
+  saveAcc(navigator.userAgent, window.screen.height + 'x' + window.screen.width);
 
   // topに戻るボタン
   btnTop.addEventListener("click", () => {
@@ -247,22 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  //　セッティングボタン
-  btnSetting.addEventListener("click", () => {
-    ModalManager.show(
-      `<h2>設定</h2>
-      <label><input type="checkbox" id="modal-opt-cref"> バス記号で出題</label>
-      <label><input type="checkbox" id="modal-opt-scale"> 音階をイタリア式で表示</label>
-      <button class="modal-save">保存</button>
-      <button class="modal-cancel">キャンセル</button>`,
-      () => {
-        document.getElementById("opt-cref").checked = document.getElementById("modal-opt-cref").checked;
-        document.getElementById("opt-scale").checked = document.getElementById("modal-opt-scale").checked;
-        OptionStorage.save();
-      }
-    );
-    OptionStorage.load();
-  });
+
 
   // -------------------
   // Gameボタン：10問連続ゲーム
@@ -305,9 +293,9 @@ document.addEventListener('DOMContentLoaded', () => {
     cntArea.style.color = "rgb(252, 215, 10)";
     cntArea.innerText = `タイム: ${clearTime}　正解率: ${accuracy}%　総合得点: ${totalScore.toFixed(2)}`;
 
-    名前入力
+    //名前入力
     let name = localStorage.getItem('playerName');
-    name = prompt("クリアしました！ 名前を入力してください", name ?? '');
+    // name = prompt("クリアしました！ 名前を入力してください", name ?? '');
     if (name === null || name.trim() === "") {
       name = "わるめのねこ";
     }
@@ -319,11 +307,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const scale = optScale.checked ? 'ita' : 'eng';
 
     // スコア保存
-    await saveScore(userId, name, scale, clearTime, accuracy, totalScore);
+    await saveScore(userId, name, scale, clearTime, accuracy, totalScore, totalQuestions);
 
     // ランキング表示
-    //await showRanking('ranking-area', 10);
+    // await showRanking('ranking-area', 10);
   });
+
+  //　Recordボタン
+  btnRecord.addEventListener("click", () => {
+    return; // とりあえず無効化
+    const ranking = getRanking(10);
+    console.log(ranking);
+    ModalManager.show(
+      `Rankinng
+      <table border="1" cellspacing="0" cellpadding="2">
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>time</th>
+        <th>accur</th>
+      </tr>
+      `,
+      () => {
+        console.log("Ranking closed");
+      }
+    );
+  });
+
+  //　Settingボタン
+  btnSetting.addEventListener("click", () => {
+    return; // とりあえず無効化
+    ModalManager.show(
+      `<h2>設定</h2>
+      <label><input type="checkbox" id="modal-opt-cref"> バス記号で出題</label>
+      <label><input type="checkbox" id="modal-opt-scale"> 音階をイタリア式で表示</label>
+      <button class="modal-save">保存</button>
+      <button class="modal-cancel">キャンセル</button>`,
+      () => {
+        document.getElementById("opt-cref").checked = document.getElementById("modal-opt-cref").checked;
+        document.getElementById("opt-scale").checked = document.getElementById("modal-opt-scale").checked;
+        OptionStorage.save();
+      }
+    );
+    OptionStorage.load();
+  });
+
 
   // -------------------
   // ヘルパー関数
@@ -366,7 +394,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return userId;
   }
 
-  // ✅ テストしたいときだけコメント解除
-  testFirestore();
+
 
 });
