@@ -23,6 +23,8 @@ const notesBass = [
   '_d/4', '_e/4'
 ]
 
+let isGameRunning = false;
+
 // -------------------
 // タイピング表示関数（残す）
 /**
@@ -139,7 +141,7 @@ const makeRecordTable = async () => {
     ranking.forEach((data, index) => {
       elms += `
         <tr>
-          <td>${getRankNo(index)}</td>
+          <td class="rank">${getRankNo(index)}</td>
           <td>${data.name}</td>
           <td>${data.clear_time}</td>
           <td>${data.accuracy}</td>
@@ -163,6 +165,7 @@ const makeRecordTable = async () => {
   );
 
 }
+
 
 
 
@@ -195,8 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let notes = notesTreble;
   OptionStorage.load();
   ModalManager.init("setting-modal");
-  let isGameRunning = false;
-
+  
   saveAcc(navigator.userAgent, window.screen.height + 'x' + window.screen.width);
 
   // topに戻るボタン
@@ -307,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-
+  
   // -------------------
   // Gameボタン：10問連続ゲーム
   btnGame.addEventListener("click", async () => {
@@ -339,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
       await sleep(600);
     }
 
-    if (!isGameunning) return; // 中断時は結果表示しない
+    if (!isGameRunning) return; // 中断時は結果表示しない
 
     const endTime = Date.now();
     const clearTime = ((endTime - startTime)/1000).toFixed(1); // 秒
