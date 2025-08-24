@@ -23,8 +23,6 @@ const notesBass = [
   '_d/4', '_e/4'
 ]
 
-
-
 // -------------------
 // タイピング表示関数（残す）
 /**
@@ -74,8 +72,10 @@ const ModalManager = {
     // 保存・キャンセルボタンのイベント
     const saveBtn = this.content.querySelector('.modal-save');
     const cancelBtn = this.content.querySelector('.modal-cancel');
+    const closeBtn = this.content.querySelector('.modal-close');
     if (saveBtn) saveBtn.onclick = () => { onSave && onSave(); this.hide(); };
     if (cancelBtn) cancelBtn.onclick = () => { onCancel && onCancel(); this.hide(); };
+    if (closeBtn) closeBtn.onclick = () => { this.hide(); };
   },
   hide() {
     this.modal.style.display = "none";
@@ -111,6 +111,62 @@ const OptionStorage = {
   }
 };
 
+const makeRecordTable = async () => {
+  // return; // とりあえず無効化
+  const ranking = await getRanking(10);
+  ModalManager.init("ranking-modal");
+
+  const getRankNo = (index) => {
+    if (index == 0) return "🥇";
+    if (index == 1) return "🥈";
+    if (index == 2) return "🥉";
+    return index + 1;
+  }
+  
+  //<table class="tbl-rankinng" border="1" cellspacing="0" cellpadding="8">
+  const makeHtml = () => {
+    let elms = `
+    <h1>🏆 Ranking 🏆</h1>
+    <table class="tbl-rankinng" border="1" cellspacing="0" cellpadding="8">
+    <tr>
+    <th>Rank</th>
+    <th>Name</th>
+    <th>Time</th>
+    <th>Accur</th>
+    </tr>
+    `;
+    // console.log(ranking);
+    ranking.forEach((data, index) => {
+      elms += `
+        <tr>
+          <td>${getRankNo(index)}</td>
+          <td>${data.name}</td>
+          <td>${data.clear_time}</td>
+          <td>${data.accuracy}</td>
+        </tr>
+      `;
+    });
+
+    elms += `
+    </table>
+    <br>
+    <button class="modal-close">閉じる</button>
+    `;
+    return elms;
+  }
+
+  ModalManager.show(
+    makeHtml(),
+    () => {
+      console.log("Ranking closed");
+    }
+  );
+
+}
+
+
+
+
 // -------------------
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -141,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ModalManager.init("setting-modal");
   let isGameRunning = false;
 
-  saveAcc(navigator.userAgent, window.screen.height + 'x' + window.screen.width);
+  // saveAcc(navigator.userAgent, window.screen.height + 'x' + window.screen.width);
 
   // topに戻るボタン
   btnTop.addEventListener("click", () => {
@@ -216,37 +272,37 @@ document.addEventListener('DOMContentLoaded', () => {
   // トグルボタンイベント
   document.querySelectorAll(".cnf-tgl > input").forEach( elm => {
     elm.addEventListener("change", (e) => {
-        const isChecked = elm.checked;
-        // 出題数（将来用）
-        if (elm.id === "drill-count") {
-            
+      const isChecked = elm.checked;
+      // 出題数（将来用）
+      if (elm.id === "drill-count") {
+          
+      }
+      // 音部記号
+      if (elm.id === "opt-cref") {
+        if (isChecked) {
+          notes = notesBass;
+        } else {
+          notes = notesTreble;
         }
-        // 音部記号
-        if (elm.id === "opt-cref") {
-          if (isChecked) {
-            notes = notesBass;
-          } else {
-            notes = notesTreble;
-          }
-          // localStorageに保存
-          OptionStorage.save(); 
-          // 表示中の音符を更新
-          score.drawNote(rndChoice(notes));
+        // localStorageに保存
+        OptionStorage.save(); 
+        // 表示中の音符を更新
+        score.drawNote(rndChoice(notes));
+      }
+      // 音階表示
+      if (elm.id === "opt-scale") {
+        if (isChecked) {
+          piano.changeScale('ita');
+        } else {
+          piano.changeScale('eng');
         }
-        // 音階表示
-        if (elm.id === "opt-scale") {
-          if (isChecked) {
-            piano.changeScale('ita');
-          } else {
-            piano.changeScale('eng');
-          }
-          // localStorageに保存
-          OptionStorage.save(); 
-        }
-        // 苦手優先（将来用）
-        if (elm.id === "wake-mode") {
-            
-        }
+        // localStorageに保存
+        OptionStorage.save(); 
+      }
+      // 苦手優先（将来用）
+      if (elm.id === "wake-mode") {
+          
+      }
     });
   });
 
@@ -283,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
       await sleep(600);
     }
 
-    if (!isGameRunning) return; // 中断時は結果表示しない
+    if (!isGameunning) return; // 中断時は結果表示しない
 
     const endTime = Date.now();
     const clearTime = ((endTime - startTime)/1000).toFixed(1); // 秒
@@ -293,45 +349,88 @@ document.addEventListener('DOMContentLoaded', () => {
     cntArea.style.color = "rgb(252, 215, 10)";
     cntArea.innerText = `タイム: ${clearTime}　正解率: ${accuracy}%　総合得点: ${totalScore.toFixed(2)}`;
 
-    //名前入力
-    let name = localStorage.getItem('playerName');
-    // name = prompt("クリアしました！ 名前を入力してください", name ?? '');
-    if (name === null || name.trim() === "") {
-      name = "わるめのねこ";
+
+    if (accuracy > 0) {
+      //名前入力
+      let name = localStorage.getItem('playerName');
+      name = prompt("クリアしました！ 名前を入力してください", name ?? '');
+      if (name === null || name.trim() === "") {
+        name = "わるめのねこ";
+      }
+      localStorage.setItem('playerName', name);
+  
+      const userId = getOrCreateUserId();
+      const optScale = document.getElementById('opt-scale');
+      const scale = optScale.checked ? 'ita' : 'eng';
+  
+      // スコア保存
+      await saveScore(userId, name, scale, clearTime, accuracy, totalScore, totalQuestions);
     }
-    localStorage.setItem('playerName', name);
 
-    const userId = getOrCreateUserId();
-
-    const optScale = document.getElementById('opt-scale');
-    const scale = optScale.checked ? 'ita' : 'eng';
-
-    // スコア保存
-    await saveScore(userId, name, scale, clearTime, accuracy, totalScore, totalQuestions);
 
     // ランキング表示
     // await showRanking('ranking-area', 10);
   });
 
+
+
+
+
+
+
   //　Recordボタン
-  btnRecord.addEventListener("click", () => {
+  btnRecord.addEventListener("click", async () => {
+    makeRecordTable();
     return; // とりあえず無効化
-    const ranking = getRanking(10);
-    console.log(ranking);
-    ModalManager.show(
-      `Rankinng
-      <table border="1" cellspacing="0" cellpadding="2">
+    const ranking = await getRanking(10);
+    ModalManager.init("ranking-modal");
+
+    const getRankNo = (index) => {
+      if (index == 0) return "🥇";
+      if (index == 1) return "🥈";
+      if (index == 2) return "🥉";
+      return index + 1;
+    }
+    
+    //<table class="tbl-rankinng" border="1" cellspacing="0" cellpadding="8">
+    const makeHtml = () => {
+      let elms = `
+      <h1>🏆 Ranking 🏆</h1>
+      <table class="tbl-rankinng" border="1" cellspacing="0" cellpadding="8">
       <tr>
-        <th>Rank</th>
-        <th>Name</th>
-        <th>time</th>
-        <th>accur</th>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Time</th>
+      <th>Accur</th>
       </tr>
-      `,
+      `;
+      // console.log(ranking);
+      ranking.forEach((data, index) => {
+        elms += `
+          <tr>
+            <td>${getRankNo(index)}</td>
+            <td>${data.name}</td>
+            <td>${data.clear_time}</td>
+            <td>${data.accuracy}</td>
+          </tr>
+        `;
+      });
+
+      elms += `
+      </table>
+      <br>
+      <button class="modal-close">閉じる</button>
+      `;
+      return elms;
+    }
+
+    ModalManager.show(
+      makeHtml(),
       () => {
         console.log("Ranking closed");
       }
     );
+
   });
 
   //　Settingボタン
@@ -393,7 +492,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     return userId;
   }
-
-
 
 });
