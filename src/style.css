@@ -71,6 +71,11 @@ body {
   border: 5px !important;
 }
 
+.rank {
+  font-size: 36px !important;
+  font-weight: bold;
+}
+
 .modal-close {
   padding: 10px 20px;
   font-size: 24px;
