@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
   OptionStorage.load();
   ModalManager.init("setting-modal");
   
-  saveAcc(navigator.userAgent, window.screen.height + 'x' + window.screen.width);
+  saveAcc(getOrCreateUserId(), navigator.userAgent, window.screen.height + 'x' + window.screen.width);
 
   // topに戻るボタン
   btnTop.addEventListener("click", () => {

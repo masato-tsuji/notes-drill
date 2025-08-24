@@ -5,9 +5,10 @@ import { collection, addDoc, serverTimestamp, query, orderBy, getDocs, limit }
   from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
 
-export async function saveAcc(userAgent, scrnSize) {
+export async function saveAcc(userId, userAgent, scrnSize) {
   try {
     await addDoc(collection(db, "NotesDrillAcc"), {
+      user_id: userId,
       userAgent: userAgent,
       scrnSize: scrnSize,
       timestamp: serverTimestamp()
