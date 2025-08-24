@@ -183,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnQues = document.getElementById("btn-question");
   const btnRecord = document.getElementById("btn-record");
   const btnSetting = document.getElementById("btn-setting");
+  const btnRecordDrill = document.getElementById("btn-record-drill");
 
   const resArea = document.getElementById("res-area");
   const cntArea = document.getElementById("count-area");
@@ -207,6 +208,12 @@ document.addEventListener('DOMContentLoaded', () => {
     divMenu.style.display = "flex";
     divDrill.style.display = "none";
   });
+  
+  // drillのRecordボタン
+  btnRecordDrill.addEventListener("click", () => {
+    makeRecordTable();
+  });
+
 
   // 出題と判定関数
   const ask_question = async  () => {
