@@ -166,10 +166,6 @@ const makeRecordTable = async () => {
 
 }
 
-
-
-
-
 // -------------------
 document.addEventListener('DOMContentLoaded', () => {
 
