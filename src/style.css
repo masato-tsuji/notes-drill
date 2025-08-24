@@ -293,7 +293,7 @@ body {
 }
 
 .white-key {
-  width: 107px; /* 白鍵の幅 */
+  width: 112px; /* 白鍵の幅 */
   height: 390px; /* 白鍵の高さ */
   background: white;
   border: 1px solid #ccc;
@@ -312,8 +312,8 @@ body {
 }
 
 .black-key {
-  width: 60px; /* 黒鍵の幅 */
-  height: 230px; /* 黒鍵の高さ */
+  width: 80px; /* 黒鍵の幅 */
+  height: 235px; /* 黒鍵の高さ */
   background: black;
   position: absolute;
   z-index: 2;
@@ -326,9 +326,9 @@ body {
 /* 黒鍵の正しい位置 */
 .black-key:nth-child(2) { margin-left: 35px; } /* C# */
 .black-key:nth-child(4) { margin-left: 85px; } /* D# */
-.black-key:nth-child(7) { margin-left: 168px;  } /* F# */
-.black-key:nth-child(9) { margin-left: 220px;  } /* G# */
-.black-key:nth-child(11) { margin-left: 265px;  } /* A# */
+.black-key:nth-child(7) { margin-left: 180px;  } /* F# */
+.black-key:nth-child(9) { margin-left: 232px;  } /* G# */
+.black-key:nth-child(11) { margin-left: 284px;  } /* A# */
 
 .read-key {
   position: absolute;

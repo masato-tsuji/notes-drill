@@ -11,7 +11,12 @@ const objPiano = ((targetDiv) => {
   const writeScaleName = (dispKeys) => {
     const filteredKeys = dispKeys.filter(key => !key.includes('#'));
     document.querySelectorAll(".white-key").forEach((elm, index) => {
-      elm.innerText = filteredKeys[index];
+      if (filteredKeys[0]=='ド') { 
+        // 日本語表記のとき
+        elm.innerText = '';
+      } else {
+        elm.innerText = filteredKeys[index];
+      }
     });
   }
 
