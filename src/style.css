@@ -228,6 +228,10 @@ body {
 #btn-top {
   font-size: 40px;
 }
+#btn-record-drill {
+  margin-left: 25px;
+  font-size: 40px;
+}
 
 #opt-area {
   display: flex;
