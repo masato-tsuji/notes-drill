@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ModalManager.init("setting-modal");
   let isGameRunning = false;
 
-  // saveAcc(navigator.userAgent, window.screen.height + 'x' + window.screen.width);
+  saveAcc(navigator.userAgent, window.screen.height + 'x' + window.screen.width);
 
   // topに戻るボタン
   btnTop.addEventListener("click", () => {
