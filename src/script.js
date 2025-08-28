@@ -7,6 +7,9 @@ import { objPiano } from './lib/piano.js';
 import { db } from './lib/firebase.js';
 import { collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js';
 
+const params = new URLSearchParams(window.location.search);
+const devOfflineMode = params.get("devOfflineMode");    // true/false
+const devMode = () => params.get("devMode");    // true/false
 
 // 設定定義
 const notesTreble = [
@@ -196,7 +199,10 @@ document.addEventListener('DOMContentLoaded', () => {
   OptionStorage.load();
   ModalManager.init("setting-modal");
   
-  saveAcc(getOrCreateUserId(), navigator.userAgent, window.screen.height + 'x' + window.screen.width);
+
+  if (!devOfflineMode || devOfflineMode === "false") {
+    saveAcc(getOrCreateUserId(), navigator.userAgent, window.screen.height + 'x' + window.screen.width);
+  }
 
   // topに戻るボタン
   btnTop.addEventListener("click", () => {
@@ -369,7 +375,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const scale = optScale.checked ? 'ita' : 'eng';
   
       // スコア保存
-      await saveScore(userId, name, scale, clearTime, accuracy, totalScore, totalQuestions);
+      if (!devOfflineMode || devOfflineMode === "false") {
+        await saveScore(userId, name, scale, clearTime, accuracy, totalScore, totalQuestions);
+      }
     }
 
 
