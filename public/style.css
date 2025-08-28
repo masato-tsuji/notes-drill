@@ -1,0 +1,435 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+
+
+/* 共通 */
+body {
+  background-color: black;
+  color: rgb(128,128,128);
+  font-size: 20px;
+  margin: auto;
+  
+}
+
+#title {
+  font-size: 70px;
+  margin-bottom: 100px;
+}
+
+#product-ver {
+  font-size: 24px;
+  margin-top: 80px;
+}
+
+/* モーダル ポップアップ*/
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  height: -webkit-fill-available; /* iOS対策 */
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  /* max-height: 760px; */
+  background: rgba(255,255,255,0.95); /* 少し透明感を追加 */
+  padding: 1em 2em;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.12);
+  /* min-width: 340px; */
+  max-width: 680px;
+  width: 100%;
+  margin: auto;
+  margin-top: 3%;
+  /* height: auto; */
+  text-align: center;
+  font-size: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: modal-float 0.3s ease;
+  backdrop-filter: blur(2px); /* 背景ぼかし効果（対応ブラウザのみ） */
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+}
+
+.modal-content th {
+  padding: 0 20px;
+}
+
+.tbl-ranking {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 36px !important;
+  color: red;
+  background-color: blue;
+  border: 5px !important;
+}
+
+.rank {
+  font-size: 36px !important;
+  font-weight: bold;
+}
+
+.modal-close {
+  padding: 10px 20px;
+  font-size: 24px;
+
+}
+
+@keyframes modal-float {
+  from { transform: translateY(40px) scale(0.96); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/*--------------------- メインエリア ---------------------*/
+.container {
+  display: flex;
+  flex-direction: column;  /*要素を縦に配置*/
+  justify-content: center; /* 中央揃え */
+  align-items: center; /* 垂直方向に中央 */
+  height: 100vh; /* ビューポートの高さいっぱいに広げる */
+  gap: 10px; /* エレメント間の間隔 */
+  width: 100%;
+  font-size: 50px;
+  font-family: 'Poppins', sans-serif; /* 日本語フォント */
+  /*font-family: 'Noto Sans JP', sans-serif; /* 日本語フォント */
+}
+
+/* 不使用 */
+.btn {
+  background-color: #007bff; /* 青色 */
+  color: white; /* 文字色 */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  width: 100px;
+  margin-top: 50px;
+}
+
+.btn:hover {
+  background-color: #0056b3; /* ホバー時に少し濃く */
+}
+
+
+/* ボタン全体のスタイル */
+.button {
+  display: inline-block; /* インラインブロックで配置 */
+  padding: 12px 20px; /* ボタン内の余白 */
+  background-color: #007bff; /* ボタンの背景色 */
+  color: white; /* テキストの色 */
+  border: none; /* ボーダーなし */
+  border-radius: 5px; /* 角を丸くする */
+  font-size: 60px; /* フォントサイズ */
+  width: 300px;
+  margin-top: 50px;
+  cursor: pointer; /* カーソルをポインターに */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* スムーズな遷移 */
+}
+
+/* ホバー時のスタイル */
+.button:hover {
+  background-color: #0056b3; /* ホバー時の背景色 */
+  transform: scale(1.05); /* 少し拡大する */
+}
+
+/* アクティブ時のスタイル */
+.button:active {
+  transform: scale(0.95); /* 押されたときに少し縮小する */
+}
+
+/* ボタンのアイコンを持つ場合 */
+.button .icon {
+  margin-right: 8px; /* アイコンとテキストの間に余白を追加 */
+}
+
+/* モバイル向けのスタイル */
+@media (max-width: 768px) {
+  .button {
+      font-size: 14px; /* モバイルでのフォントサイズを小さく */
+      padding: 10px 16px; /* パディングを調整 */
+  }
+}
+
+/* タイピングエフェクト */
+.typing-display::after {
+  content: "|";
+  animation: blinking 0.7s ease-in-out infinite alternate;
+}
+@keyframes blinking {
+0% {opacity: 0;}
+100% {opacity: 1;}
+}
+
+.soon {
+  display: inline-block; /* インラインブロックで配置 */
+  padding: 12px 20px; /* ボタン内の余白 */
+  background-color: rgb(192, 192, 192);
+  color: white; /* テキストの色 */
+  border: none; /* ボーダーなし */
+  border-radius: 5px; /* 角を丸くする */
+  font-size: 60px; /* フォントサイズ */
+  width: 300px;
+  margin-top: 50px;
+  cursor: pointer; /* カーソルをポインターに */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* スムーズな遷移 */
+
+}
+
+
+/*--------------------- メニューエリア ---------------------*/
+#ranking-area {
+  display: none;
+  padding-top: 50px;
+  color: black;
+  background-color: white;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+
+.tbl-ranking {
+  width: 100%;
+  height: 1500px;
+  border-collapse: collapse;
+  font-size: 36px;
+  color: red;
+  background-color: blue;
+  padding: 50px;
+}
+
+#tbl-ranking {
+  width: 100%;
+  height: 1500px;
+  border-collapse: collapse;
+  font-size: 36px;
+  color: red;
+  background-color: blue;
+  padding: 50px;
+}
+
+/*--------------------- ドリルエリア ---------------------*/
+#drill-area {
+  display: none;
+  padding-top: 50px;
+}
+
+#btn-top {
+  font-size: 40px;
+}
+#btn-record-drill {
+  margin-left: 25px;
+  font-size: 40px;
+}
+
+#opt-area {
+  display: flex;
+  position: block;
+  justify-content: center;
+  /*flex-direction: row;  要素を横に配置*/
+  height: 100px;
+  /* width: 500px; */
+  /* border-style: dashed; */
+  /* border-color: red; */
+
+  /* position: relative; */
+}
+
+#score-area {
+  /* height: 100px; */
+  /* border-style: dashed; */
+  /* border-color: red; */
+  background-color: white;
+}
+
+#btn-question {
+  width: 200px;
+  height: 90px;
+  font-size: 42px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#res-area {
+  /* height: 120px; */
+  min-height: 80px;
+  /* border-style: dashed; */
+  /* border-color: red; */
+  font-size: 50px;
+}
+
+#count-area {
+  height: 20px;
+  margin-bottom: 10px;
+  /* border-style: dashed; */
+  /* border-color: red; */
+  font-size: 20px;
+}
+
+/*--------------------- piano ---------------------*/
+
+.container_row {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 垂直方向に中央 */
+  height: 500px; /* 100vh; */
+  width: 100%;
+}
+
+#piano {
+  position: relative;
+  display: flex;
+}
+
+.white-key {
+  width: 112px; /* 白鍵の幅 */
+  height: 390px; /* 白鍵の高さ */
+  background: white;
+  border: 1px solid #ccc;
+  margin-right: 5px;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  text-align: center;
+  line-height: 600px;
+  font-size: 34px;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif; /* 日本語フォント */
+}
+.white-key:active {
+  background: rgb(146, 146, 146);
+}
+
+.black-key {
+  width: 80px; /* 黒鍵の幅 */
+  height: 235px; /* 黒鍵の高さ */
+  background: black;
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+}
+.black-key:active {
+  background: rgb(146, 146, 146);
+}
+
+/* 黒鍵の正しい位置 */
+.black-key:nth-child(2) { margin-left: 35px; } /* C# */
+.black-key:nth-child(4) { margin-left: 85px; } /* D# */
+.black-key:nth-child(7) { margin-left: 180px;  } /* F# */
+.black-key:nth-child(9) { margin-left: 232px;  } /* G# */
+.black-key:nth-child(11) { margin-left: 284px;  } /* A# */
+
+.read-key {
+  position: absolute;
+  z-index: 3;
+  font-size: 34px;
+  font-weight: bold;
+  margin-top: 300px;
+  font-family: 'Poppins', sans-serif; /* 日本語フォント */
+}
+
+.read-key:nth-child(18) { margin-left: 50px; } /* F */
+.read-key:nth-child(20) { margin-left: 42px; } /* G */
+.read-key:nth-child(22) { margin-left: 45px; } /* A */
+.read-key:nth-child(24) { margin-left: 47px; } /* B */
+
+
+/*-------------------- 楽譜 ----------------------*/
+
+/* .vf-stave path {
+  stroke: red !important;
+}
+
+g.vf-clef path {
+  fill: white !important;
+  stroke: white !important;
+}
+
+g.vf-notehead path {
+  fill: white !important;
+  stroke: white !important;
+} */
+
+
+/*---------------- トグルスイッチ --------------*/
+/* 
+<div class="cnf_tgl">
+<input type="checkbox" id="input-id-name">
+<label for="input-id-name"></label>
+<span class="class_name">表示</span>
+</div> 
+*/
+
+
+.cnf-tgl {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 70px;
+  width: 400px;   /* 200 */
+  margin-top: 20px;
+  margin-bottom: 20p;
+  font-size: 32px;    /*サイズに指定にトグルサイズ追従*/
+}
+
+.cnf-tgl > input {
+  display: none;
+}
+
+.cnf-tgl > label {
+  display: block;
+  position: relative;
+  width: 2.8em;
+  height: 1.5em;
+  margin: 0px 10px 0px 10px;
+  border-radius: 1.5em;
+  /* background-color: #dadada; */
+  background-color: #007bff;
+  cursor: pointer;
+}
+
+.cnf-tgl > input:checked + label {
+  background-color: #007bff;
+}
+
+.cnf-tgl > label::before {
+  content: "";
+  position: absolute;
+  top: 0.1em;
+  left: 0.1em;
+  width: calc(1.5em - 0.2em);
+  height: calc(1.5em - 0.2em);
+  border-radius: calc(1.5em - 0.2em);
+  background-color: #fff;
+  transition: 0.5s;
+}
+
+.cnf-tgl > input:checked + label::before {
+  left: calc(100% - 1.5em + 0.05em);
+}
+
+.cnf-tgl > span {
+  position: relative;
+  /* top: -28px; */
+  /* left: 70px; */
+  /* width: 70px; */
+  color: #aaaaaa;
+}
+
+.cnf-tgl > input:checked + label + span {
+  /* color: #180474; */
+  /* color: white; */
+  font-weight: normal;
+}
+
