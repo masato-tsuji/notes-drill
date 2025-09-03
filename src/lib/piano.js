@@ -5,7 +5,7 @@ const objPiano = ((targetDiv) => {
   const keysEng = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
   const keysGny = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
   const keysIta = ['ド', 'ド#', 'レ', 'レ#', 'ミ', 'ファ', 'ファ#', 'ソ', 'ソ#', 'ラ', 'ラ#', 'シ'];
-  const keysVal = ['c', '#c,_d', 'd', '#d,_e', 'e', 'f', '#f,_g', 'g', '#g,_a', 'a', '#a,_B', 'b']
+  const keysVal = ['c', '#c,_d', 'd', '#d,_e', 'e', 'f', '#f,_g', 'g', '#g,_a', 'a', '#a,_b', 'b']
   
   // 鍵盤に音階書き出し
   const writeScaleName = (dispKeys) => {
@@ -84,8 +84,6 @@ const objPiano = ((targetDiv) => {
       if (scoreType == 'ita') writeScaleName(keysIta);
     }
   }
-  
-
   
 });
 
