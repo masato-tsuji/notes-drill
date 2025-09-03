@@ -1,0 +1,91 @@
+'use strict'
+// ピアノを描画し鍵盤のタッチを処理するスクリプト
+const objPiano = ((targetDiv) => {
+  const pianoElement = document.getElementById(targetDiv);
+  const keysEng = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  const keysGny = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
+  const keysIta = ['ド', 'ド#', 'レ', 'レ#', 'ミ', 'ファ', 'ファ#', 'ソ', 'ソ#', 'ラ', 'ラ#', 'シ'];
+  const keysVal = ['c', '#c,_d', 'd', '#d,_e', 'e', 'f', '#f,_g', 'g', '#g,_a', 'a', '#a,_b', 'b']
+  
+  // 鍵盤に音階書き出し
+  const writeScaleName = (dispKeys) => {
+    const filteredKeys = dispKeys.filter(key => !key.includes('#'));
+    document.querySelectorAll(".white-key").forEach((elm, index) => {
+      if (filteredKeys[0]=='ド') { 
+        // 日本語表記のとき
+        elm.innerText = '';
+      } else {
+        elm.innerText = filteredKeys[index];
+      }
+    });
+  }
+
+  // 鍵盤押下のイベント定義
+  const touchKey = (key, disp) => {
+    const event = new CustomEvent('keyTouched', { detail: { key, disp } });
+    document.dispatchEvent(event);
+  }
+
+  // 鍵盤作成
+  function createPianoKeys() {
+    const dispKeys = keysEng;
+    const keys = keysVal;
+    
+    // タッチデバイスかを返す
+    const isTouchDevice = () => {
+      return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    }
+
+    // ユーザーエージェント取得
+    const ua = navigator.userAgent;
+
+    // 鍵盤作成
+    keys.forEach((key, index) => {
+      const isBlackKey = key.includes('#');
+      const keyElement = document.createElement('div');
+      const disp = dispKeys[index];
+
+        if (isBlackKey) {
+            keyElement.className = 'black-key';
+            keyElement.style.left = `${index * 40 }px`; // 白鍵の上に黒鍵配置
+        } else {
+            keyElement.className = 'white-key';
+        }
+
+        // イベント登録
+        // if (isTouchDevice()) {
+        //   // タッチパネルのみに反応
+        //   keyElement.addEventListener('touchstart', () => touchKey(key, disp));
+        //   // keyElement.addEventListener('mousedown', () => touchKey(key));
+        // } else {
+        //   keyElement.addEventListener('mousedown', () => touchKey(key, disp));
+        // }
+        
+        // デバイスによってイベント分ける
+        if (/iPhone|iPad|iPod|Android/i.test(ua)) {
+          keyElement.addEventListener('touchstart', () => touchKey(key, disp));
+        } else {
+          keyElement.addEventListener('mousedown', () => touchKey(key, disp));
+        }
+        
+        pianoElement.appendChild(keyElement);
+        // pianoElement.appendChild(readElement);
+    });
+
+    writeScaleName(dispKeys);
+
+  }
+  
+  createPianoKeys();
+
+  return {
+    changeScale: (scoreType) => {
+      if (scoreType == 'eng') writeScaleName(keysEng);
+      if (scoreType == 'ita') writeScaleName(keysIta);
+    }
+  }
+  
+});
+
+export { objPiano };
+

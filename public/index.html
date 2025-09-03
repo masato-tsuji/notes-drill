@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="apple-touch-icon" href="/img/icon_notes_drill.png">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+    <title>Notes Drill for mina</title>
+    <link rel="stylesheet" href="style.css?v=1.0.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vexflow/3.0.9/vexflow-min.js"></script>
+    <script type="module" src="./lib/notes.js"></script>
+    <script type="module" src="./lib/piano.js"></script>
+    <script type="module" src="script.js"></script>
+
+  </head>
+  <body>
+    <div class="container" id="main-menu">
+      <div class="typing-display" id="title"></div>
+      <button class="button" id="btn-start">Training</button>
+      <button class="button" id="btn-game">Game</button>
+      <div id="ranking-area"></div>
+      <button class="button" id="btn-record">Record</button>
+      <button class="soon" id="btn-setting">Setting</button>
+      <div id="product-ver">M ver.1.2.3</div>
+
+    </div>
+    <div  class="container" id="drill-area">
+      <div class="'drill-mennu">
+        <button class="top-button" id="btn-top">Top</button>
+        <button class="top-button" id="btn-record-drill">Record</button>
+      </div>
+      <div id="opt-area"></div>
+      <div id="score-area"></div>
+      <div id="res-area">　</div>
+      <div id="count-area"></div>
+      <button id="btn-question">出 題</button>
+      <div class="container_row" id="piano-keys">
+        <div id="piano">
+          <!-- 鍵盤がここに描画される -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- 設定モーダル -->
+    <div id="setting-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>設定</h2>
+        <label>
+          <input type="checkbox" id="modal-opt-cref">
+          バス記号で出題
+        </label>
+        <label>
+          <input type="checkbox" id="modal-opt-scale">
+          音階をイタリア式で表示
+        </label>
+        <button id="modal-save">保存</button>
+        <button id="modal-cancel">キャンセル</button>
+      </div>
+    </div>
+
+    <!-- ランキングモーダル -->
+    <div id="ranking-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h1>ランキング</h1>
+        <div id="ranking-list">
+          <!-- ランキングがここに表示される -->
+        </div>
+        <button id="modal-close">閉じる</button>
+      </div>
+    </div>
+
+  </body>
+</html>
