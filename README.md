@@ -31,5 +31,8 @@ git checkout main
 
 `sh ./scripts/deploy.sh`
 
+### debug環境
+
+
 ### 総合スコア
 総合スコア ＝ 正解率 / クリアタイム
