@@ -36,8 +36,12 @@ git checkout main
 
 ---
 ### テスト環境
+```bash
+# カレントディレクトリを簡易Webサーバとして起動
+python -m http.server 8000
+# http://localhost:8000で起動できる
 
-
+```
 
 ---
 ### 総合スコアの求め方メモ
