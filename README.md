@@ -2,7 +2,7 @@
 
 ### github上のpagesのサイトを更新
 
-```
+```bash
 #!/bin/bash
 # deploy.sh
 # gh-pagesブランチでpushするこどでgithub側のactionにより
@@ -29,10 +29,16 @@ git push --force origin gh-pages
 git checkout main
 ```
 
+### 実行方法
 `sh ./scripts/deploy.sh`
 
 ### debug環境
 
+---
+### テスト環境
 
-### 総合スコア
+
+
+---
+### 総合スコアの求め方メモ
 総合スコア ＝ 正解率 / クリアタイム
